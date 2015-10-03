@@ -41,6 +41,8 @@ namespace Project
         private Stack<GameObject> removedGameObjects;
         private KeyboardManager keyboardManager;
         public KeyboardState keyboardState;
+
+        public Sphere sphere;
         public Player player;
         public AccelerometerReading accelerometerReading;
         public GameInput input;
@@ -112,9 +114,10 @@ namespace Project
             gameObjects = new List<GameObject>();
             addedGameObjects = new Stack<GameObject>();
             removedGameObjects = new Stack<GameObject>();
-
+           
             // Create game objects.
             gameObjects.Add(player);
+            gameObjects.Add(sphere);
             //gameObjects.Add(new EnemyController(this));
 
             // Create an input layout from the vertices
@@ -127,6 +130,7 @@ namespace Project
             Window.Title = "Lab 4";
             camera = new Camera(this);
             player = new Player(this);
+            sphere = new Sphere(Content.Load<Model>("sphere"), this);
 
             base.Initialize();
         }
