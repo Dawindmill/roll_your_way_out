@@ -1,2 +1,2 @@
-# graphics_interactions
-The repo for Graphics Interaction Project 2
+# GI_proj2
+The repo for Graphics and Interaction Project 2
