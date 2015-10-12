@@ -29,7 +29,6 @@ namespace Project
         public void Update()
         {
             pos = game.player.pos + pos_relative_to_player;
-            Projection = Matrix.PerspectiveFovLH((float)Math.PI / 4.0f, (float)game.GraphicsDevice.BackBuffer.Width / game.GraphicsDevice.BackBuffer.Height, 0.1f, 100.0f);
             View = Matrix.LookAtLH(pos, game.player.pos, Vector3.UnitY);
         }
     }

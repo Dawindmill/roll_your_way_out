@@ -137,7 +137,6 @@ namespace Project
             {
                 keyboardState = keyboardManager.GetState();
                 flushAddedAndRemovedGameObjects();
-                camera.Update();
                 accelerometerReading = input.accelerometer.GetCurrentReading();
                 for (int i = 0; i < gameObjects.Count; i++)
                 {
@@ -152,6 +151,7 @@ namespace Project
                     this.Dispose();
                     App.Current.Exit();
                 }
+                camera.Update();
                 // Handle base.Update
             }
             base.Update(gameTime);

@@ -65,7 +65,15 @@ namespace Project
             if (pos.Z > game.boundaryBack) { pos.Z = game.boundaryBack; }
 
             basicEffect.World = Matrix.Translation(pos);
-            basicEffect.View = game.camera.View;
+        }
+        public override void Draw(GameTime gametime)
+        {
+            if (myModel != null)
+            {
+                basicEffect.View = game.camera.View;
+            }
+            // Some objects such as the Enemy Controller have no model and thus will not be drawn
+            base.Draw(gametime);
         }
 
         // React to getting hit by an enemy bullet.
