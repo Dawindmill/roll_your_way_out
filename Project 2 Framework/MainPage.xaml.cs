@@ -44,6 +44,8 @@ namespace Project
         public void UpdateScore(int score)
         {
             txtScore.Text = "Score: " + score.ToString();
+            debuggingBlock.Text = "Player pos: " + game.player.pos.ToString() + "\n" + "Camera pos: " + game.camera.pos.ToString() + "\n" + "Accelerometer X: " + game.accelerometerReading.AccelerationX.ToString() + "\n" + "Accelerometer Y: " + game.accelerometerReading.AccelerationY.ToString();
+            
         }
 
         // TASK 2: Starts the game.  Not that it seems easier to simply move the game.Run(this) command to this function,

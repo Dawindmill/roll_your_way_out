@@ -41,7 +41,7 @@ namespace Project
         private Stack<GameObject> removedGameObjects;
         private KeyboardManager keyboardManager;
         public KeyboardState keyboardState;
-        private Player player;
+        public Player player;
         public AccelerometerReading accelerometerReading;
         public GameInput input;
         public int score;
@@ -64,6 +64,8 @@ namespace Project
         public float boundaryRight;
         public float boundaryTop;
         public float boundaryBottom;
+        public float boundaryFront;
+        public float boundaryBack;
 
         public bool started = false;
         /// <summary>
@@ -89,6 +91,8 @@ namespace Project
             boundaryRight = 4.5f;
             boundaryTop = 4;
             boundaryBottom = -4.5f;
+            boundaryFront = -4.5f;
+            boundaryBack = 4.5f;
 
             // Initialise event handling.
             input.gestureRecognizer.Tapped += Tapped;
@@ -110,9 +114,8 @@ namespace Project
             removedGameObjects = new Stack<GameObject>();
 
             // Create game objects.
-            player = new Player(this);
             gameObjects.Add(player);
-            gameObjects.Add(new EnemyController(this));
+            //gameObjects.Add(new EnemyController(this));
 
             // Create an input layout from the vertices
 
@@ -123,6 +126,7 @@ namespace Project
         {
             Window.Title = "Lab 4";
             camera = new Camera(this);
+            player = new Player(this);
 
             base.Initialize();
         }

@@ -13,7 +13,7 @@ namespace Project
     using SharpDX.Toolkit.Graphics;
     using SharpDX.Toolkit.Input;
     // Player class.
-    class Player : GameObject
+    public class Player : GameObject
     {
         //private float speed = 0.006f;
         private float projectileSpeed = 20;
@@ -23,7 +23,7 @@ namespace Project
             this.game = game;
             type = GameObjectType.Player;
             myModel = game.assets.GetModel("player", CreatePlayerModel);
-            pos = new SharpDX.Vector3(0, game.boundaryBottom + 0.5f, 0);
+            pos = new SharpDX.Vector3(0, 0, 0);
             GetParamsFromModel();
         }
 
@@ -56,12 +56,16 @@ namespace Project
 
             // TASK 1: Determine velocity based on accelerometer reading
             pos.X += (float)game.accelerometerReading.AccelerationX;
+            pos.Z += (float)game.accelerometerReading.AccelerationY;
 
             // Keep within the boundaries.
             if (pos.X < game.boundaryLeft) { pos.X = game.boundaryLeft; }
             if (pos.X > game.boundaryRight) { pos.X = game.boundaryRight; }
+            if (pos.Z < game.boundaryFront) { pos.Z = game.boundaryFront; }
+            if (pos.Z > game.boundaryBack) { pos.Z = game.boundaryBack; }
 
             basicEffect.World = Matrix.Translation(pos);
+            basicEffect.View = game.camera.View;
         }
 
         // React to getting hit by an enemy bullet.
