@@ -17,12 +17,19 @@ namespace Project
     {
         //private float speed = 0.006f;
         private float projectileSpeed = 20;
+        private float xSpeed = 0;
+        private float zSpeed = 0;
+        private float angularVelocity;
+        private float radius;
+        private float xAngle = 0;
+        private float zAngle = 0;
 
         public Player(LabGame game)
         {
             this.game = game;
             type = GameObjectType.Player;
             myModel = game.assets.GetModel("player", CreatePlayerModel);
+            radius = 0.5f;
             pos = new SharpDX.Vector3(0, 0, 0);
             GetParamsFromModel();
             effect = game.Content.Load<Effect>("Phong");
@@ -56,8 +63,16 @@ namespace Project
             if (game.keyboardState.IsKeyDown(Keys.Space)) { fire(); }
 
             // TASK 1: Determine velocity based on accelerometer reading
-            pos.X += (float)game.accelerometerReading.AccelerationX;
-            pos.Z += (float)game.accelerometerReading.AccelerationY;
+            //pos.X += (float)game.accelerometerReading.AccelerationX;
+            //pos.Z += (float)game.accelerometerReading.AccelerationY;
+
+            xSpeed = (float)game.accelerometerReading.AccelerationX * 0.2f;
+            zSpeed = (float)game.accelerometerReading.AccelerationY * 0.2f;
+            pos.X += xSpeed;
+            pos.Z += zSpeed;
+            xAngle += xSpeed * radius;
+            zAngle += zSpeed * radius;
+            angularVelocity = (float)Math.Sqrt(xSpeed * xSpeed + zSpeed * zSpeed) * radius;
 
             // Keep within the boundaries.
             if (pos.X < game.boundaryLeft) { pos.X = game.boundaryLeft; }
@@ -65,13 +80,13 @@ namespace Project
             if (pos.Z < game.boundaryFront) { pos.Z = game.boundaryFront; }
             if (pos.Z > game.boundaryBack) { pos.Z = game.boundaryBack; }
 
-            basicEffect.World = Matrix.Translation(pos);
+            basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(pos.Z, pos.Y, -pos.X)), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
         }
         public override void Draw(GameTime gametime)
         {
             if (myModel != null)
             {
-                //basicEffect.View = game.camera.View;
+                basicEffect.View = game.camera.View;
                 effect.Parameters["World"].SetValue(basicEffect.World);
                 effect.Parameters["View"].SetValue(basicEffect.View);
                 effect.Parameters["Projection"].SetValue(basicEffect.Projection);
