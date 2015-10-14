@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Graphics.Display;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -45,6 +46,8 @@ namespace Project
             {
                 //TODO: Load state from previously suspended application
             }
+
+            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
 
             // Place the frame in the current Window and ensure that it is active
             var swapchainPanel = new MainPage();
