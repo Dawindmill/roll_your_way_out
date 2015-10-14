@@ -35,7 +35,14 @@ namespace Project
                 game.GraphicsDevice.SetVertexInputLayout(myModel.inputLayout);
 
                 // Apply the basic effect technique and draw the object
+                basicEffect.EnableDefaultLighting();
+                basicEffect.AmbientLightColor = new Vector3(0.5f, 0.5f, 0.5f);
+                basicEffect.DiffuseColor = new Vector4(0.2f, 0.2f, 0.2f, 1);
+                basicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(-1, -1, 1));
+                basicEffect.DirectionalLight0.DiffuseColor = new Vector3(5.0f, 5.0f, 5.0f);
+                basicEffect.DirectionalLight0.SpecularColor = new Vector3(1, 1, 1);
                 basicEffect.CurrentTechnique.Passes[0].Apply();
+                
                 game.GraphicsDevice.Draw(PrimitiveType.TriangleList, myModel.vertices.ElementCount);
             }
         }

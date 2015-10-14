@@ -31,11 +31,11 @@ namespace Project
             this.collisionRadius = collisionRadius;
         }
 
-        public MyModel(LabGame game, VertexPositionTexture[] shapeArray, String textureName, float collisionRadius)
+        public MyModel(LabGame game, VertexPositionNormalTexture[] shapeArray, String textureName, float collisionRadius)
         {
             this.vertices = Buffer.Vertex.New(game.GraphicsDevice, shapeArray);
-            this.inputLayout = VertexInputLayout.New<VertexPositionTexture>(0);
-            vertexStride = Utilities.SizeOf<VertexPositionTexture>();
+            this.inputLayout = VertexInputLayout.New<VertexPositionNormalTexture>(0);
+            vertexStride = Utilities.SizeOf<VertexPositionNormalTexture>();
             modelType = ModelType.Textured;
             Texture = game.Content.Load<Texture2D>(textureName);
             this.collisionRadius = collisionRadius;
