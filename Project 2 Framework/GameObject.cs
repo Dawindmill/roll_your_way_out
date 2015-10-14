@@ -23,6 +23,7 @@ namespace Project
         public GameObjectType type = GameObjectType.None;
         public Vector3 pos;
         public BasicEffect basicEffect;
+        public Effect effect;
 
         public abstract void Update(GameTime gametime);
         public virtual void Draw(GameTime gametime)
@@ -35,14 +36,14 @@ namespace Project
                 game.GraphicsDevice.SetVertexInputLayout(myModel.inputLayout);
 
                 // Apply the basic effect technique and draw the object
-                basicEffect.EnableDefaultLighting();
+                /*basicEffect.EnableDefaultLighting();
                 basicEffect.AmbientLightColor = new Vector3(0.5f, 0.5f, 0.5f);
                 basicEffect.DiffuseColor = new Vector4(0.2f, 0.2f, 0.2f, 1);
                 basicEffect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(-1, -1, 1));
                 basicEffect.DirectionalLight0.DiffuseColor = new Vector3(5.0f, 5.0f, 5.0f);
                 basicEffect.DirectionalLight0.SpecularColor = new Vector3(1, 1, 1);
-                basicEffect.CurrentTechnique.Passes[0].Apply();
-                
+                basicEffect.PreferPerPixelLighting = true;*/
+                //basicEffect.CurrentTechnique.Passes[0].Apply();
                 game.GraphicsDevice.Draw(PrimitiveType.TriangleList, myModel.vertices.ElementCount);
             }
         }

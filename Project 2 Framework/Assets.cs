@@ -47,48 +47,48 @@ namespace Project
             Vector3 rightNorm = -leftNorm;
             Vector3 topNorm = new Vector3(0, 1, 0);
             Vector3 bottomNorm = -topNorm;
-            VertexPositionNormalTexture[] shapeArray = new VertexPositionNormalTexture[]{
-            new VertexPositionNormalTexture(new Vector3(-1.0f, -1.0f, -1.0f), frontNorm, new Vector2(0.0f, 1.0f)), // Front
-            new VertexPositionNormalTexture(new Vector3(-1.0f, 1.0f, -1.0f), frontNorm, new Vector2(0.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, 1.0f, -1.0f), frontNorm, new Vector2(1.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(-1.0f, -1.0f, -1.0f), frontNorm, new Vector2(0.0f, 1.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, 1.0f, -1.0f), frontNorm, new Vector2(1.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, -1.0f, -1.0f), frontNorm, new Vector2(1.0f, 1.0f)),
+            VertexPositionNormalColor[] shapeArray = new VertexPositionNormalColor[]{
+            new VertexPositionNormalColor(new Vector3(-1.0f, -1.0f, -1.0f), frontNorm, Color.Yellow), // Front
+            new VertexPositionNormalColor(new Vector3(-1.0f, 1.0f, -1.0f), frontNorm, Color.Yellow),
+            new VertexPositionNormalColor(new Vector3(1.0f, 1.0f, -1.0f), frontNorm, Color.Yellow),
+            new VertexPositionNormalColor(new Vector3(-1.0f, -1.0f, -1.0f), frontNorm, Color.Yellow),
+            new VertexPositionNormalColor(new Vector3(1.0f, 1.0f, -1.0f), frontNorm, Color.Yellow),
+            new VertexPositionNormalColor(new Vector3(1.0f, -1.0f, -1.0f), frontNorm, Color.Yellow),
 
-            new VertexPositionNormalTexture(new Vector3(-1.0f, -1.0f, 1.0f), backNorm, new Vector2(1.0f, 1.0f)), // BACK
-            new VertexPositionNormalTexture(new Vector3(1.0f, 1.0f, 1.0f), backNorm, new Vector2(0.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(-1.0f, 1.0f, 1.0f), backNorm, new Vector2(1.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(-1.0f, -1.0f, 1.0f), backNorm, new Vector2(1.0f, 1.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, -1.0f, 1.0f), backNorm, new Vector2(0.0f, 1.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, 1.0f, 1.0f), backNorm, new Vector2(0.0f, 0.0f)),
+            new VertexPositionNormalColor(new Vector3(-1.0f, -1.0f, 1.0f), backNorm, Color.Red), // BACK
+            new VertexPositionNormalColor(new Vector3(1.0f, 1.0f, 1.0f), backNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(-1.0f, 1.0f, 1.0f), backNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(-1.0f, -1.0f, 1.0f), backNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, -1.0f, 1.0f), backNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, 1.0f, 1.0f), backNorm, Color.Red),
 
-            new VertexPositionNormalTexture(new Vector3(-1.0f, 1.0f, -1.0f), topNorm, new Vector2(0.0f, 1.0f)), // Top
-            new VertexPositionNormalTexture(new Vector3(-1.0f, 1.0f, 1.0f), topNorm, new Vector2(0.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, 1.0f, 1.0f), topNorm, new Vector2(1.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(-1.0f, 1.0f, -1.0f), topNorm, new Vector2(0.0f, 1.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, 1.0f, 1.0f), topNorm, new Vector2(1.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, 1.0f, -1.0f), topNorm, new Vector2(1.0f, 1.0f)),
+            new VertexPositionNormalColor(new Vector3(-1.0f, 1.0f, -1.0f), topNorm, Color.Red), // Top
+            new VertexPositionNormalColor(new Vector3(-1.0f, 1.0f, 1.0f), topNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, 1.0f, 1.0f), topNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(-1.0f, 1.0f, -1.0f), topNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, 1.0f, 1.0f), topNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, 1.0f, -1.0f), topNorm, Color.Red),
 
-            new VertexPositionNormalTexture(new Vector3(-1.0f, -1.0f, -1.0f), bottomNorm, new Vector2(0.0f, 0.0f)), // Bottom
-            new VertexPositionNormalTexture(new Vector3(1.0f, -1.0f, 1.0f), bottomNorm, new Vector2(1.0f, 1.0f)),
-            new VertexPositionNormalTexture(new Vector3(-1.0f, -1.0f, 1.0f), bottomNorm, new Vector2(0.0f, 1.0f)),
-            new VertexPositionNormalTexture(new Vector3(-1.0f, -1.0f, -1.0f), bottomNorm, new Vector2(0.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, -1.0f, -1.0f), bottomNorm, new Vector2(1.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, -1.0f, 1.0f), bottomNorm, new Vector2(1.0f, 1.0f)),
+            new VertexPositionNormalColor(new Vector3(-1.0f, -1.0f, -1.0f), bottomNorm, Color.Red), // Bottom
+            new VertexPositionNormalColor(new Vector3(1.0f, -1.0f, 1.0f), bottomNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(-1.0f, -1.0f, 1.0f), bottomNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(-1.0f, -1.0f, -1.0f), bottomNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, -1.0f, -1.0f), bottomNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, -1.0f, 1.0f), bottomNorm, Color.Red),
 
-            new VertexPositionNormalTexture(new Vector3(-1.0f, -1.0f, -1.0f), leftNorm, new Vector2(1.0f, 1.0f)), // Left
-            new VertexPositionNormalTexture(new Vector3(-1.0f, -1.0f, 1.0f), leftNorm, new Vector2(0.0f, 1.0f)),
-            new VertexPositionNormalTexture(new Vector3(-1.0f, 1.0f, 1.0f), leftNorm, new Vector2(0.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(-1.0f, -1.0f, -1.0f), leftNorm, new Vector2(1.0f, 1.0f)),
-            new VertexPositionNormalTexture(new Vector3(-1.0f, 1.0f, 1.0f), leftNorm, new Vector2(0.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(-1.0f, 1.0f, -1.0f), leftNorm, new Vector2(1.0f, 0.0f)),
+            new VertexPositionNormalColor(new Vector3(-1.0f, -1.0f, -1.0f), leftNorm, Color.Red), // Left
+            new VertexPositionNormalColor(new Vector3(-1.0f, -1.0f, 1.0f), leftNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(-1.0f, 1.0f, 1.0f), leftNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(-1.0f, -1.0f, -1.0f), leftNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(-1.0f, 1.0f, 1.0f), leftNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(-1.0f, 1.0f, -1.0f), leftNorm, Color.Red),
 
-            new VertexPositionNormalTexture(new Vector3(1.0f, -1.0f, -1.0f), rightNorm, new Vector2(0.0f, 1.0f)), // Right
-            new VertexPositionNormalTexture(new Vector3(1.0f, 1.0f, 1.0f), rightNorm, new Vector2(1.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, -1.0f, 1.0f), rightNorm, new Vector2(1.0f, 1.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, -1.0f, -1.0f), rightNorm, new Vector2(0.0f, 1.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, 1.0f, -1.0f), rightNorm, new Vector2(0.0f, 0.0f)),
-            new VertexPositionNormalTexture(new Vector3(1.0f, 1.0f, 1.0f), rightNorm, new Vector2(1.0f, 0.0f)),
+            new VertexPositionNormalColor(new Vector3(1.0f, -1.0f, -1.0f), rightNorm, Color.Red), // Right
+            new VertexPositionNormalColor(new Vector3(1.0f, 1.0f, 1.0f), rightNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, -1.0f, 1.0f), rightNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, -1.0f, -1.0f), rightNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, 1.0f, -1.0f), rightNorm, Color.Red),
+            new VertexPositionNormalColor(new Vector3(1.0f, 1.0f, 1.0f), rightNorm, Color.Red),
             };
 
             for (int i = 0; i < shapeArray.Length; i++)

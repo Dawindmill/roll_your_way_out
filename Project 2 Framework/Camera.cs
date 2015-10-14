@@ -28,7 +28,7 @@ namespace Project
         // If the screen is resized, the projection matrix will change
         public void Update()
         {
-            pos = game.player.pos + pos_relative_to_player;
+            //pos = game.player.pos + pos_relative_to_player;
             View = Matrix.LookAtLH(pos, game.player.pos, Vector3.UnitY);
         }
     }

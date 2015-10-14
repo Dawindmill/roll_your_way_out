@@ -25,6 +25,7 @@ namespace Project
             myModel = game.assets.GetModel("player", CreatePlayerModel);
             pos = new SharpDX.Vector3(0, 0, 0);
             GetParamsFromModel();
+            effect = game.Content.Load<Effect>("Phong");
         }
 
         public MyModel CreatePlayerModel()
@@ -70,7 +71,13 @@ namespace Project
         {
             if (myModel != null)
             {
-                basicEffect.View = game.camera.View;
+                //basicEffect.View = game.camera.View;
+                effect.Parameters["World"].SetValue(basicEffect.World);
+                effect.Parameters["View"].SetValue(basicEffect.View);
+                effect.Parameters["Projection"].SetValue(basicEffect.Projection);
+                effect.Parameters["cameraPos"].SetValue(new Vector4(game.camera.pos.X, game.camera.pos.Y, game.camera.pos.Z, 1));
+                effect.Parameters["lightPntPos"].SetValue(new Vector4(50, 50, -50, 1));
+                effect.Techniques[0].Passes[0].Apply();
             }
             // Some objects such as the Enemy Controller have no model and thus will not be drawn
             base.Draw(gametime);
