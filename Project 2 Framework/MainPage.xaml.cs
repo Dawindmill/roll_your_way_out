@@ -45,7 +45,7 @@ namespace Project
         {
             txtScore.Text = "Score: " + score.ToString();
             debuggingBlock.Text = "Player pos: " + game.player.pos.ToString() + "\n" + "Camera pos: " + game.camera.pos.ToString() + "\n" + "Accelerometer X: " + game.accelerometerReading.AccelerationX.ToString() + "\n" + "Accelerometer Y: " + game.accelerometerReading.AccelerationY.ToString();
-            
+            debuggingBlock.Text += "\nxSpeed: " + game.player.xSpeed.ToString() + "\nzSpeed: " + game.player.zSpeed.ToString() + "\nxAngle: " + game.player.xAngle.ToString() + "\nzAngle: " + game.player.zAngle.ToString();
         }
 
         // TASK 2: Starts the game.  Not that it seems easier to simply move the game.Run(this) command to this function,

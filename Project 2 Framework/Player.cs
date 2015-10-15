@@ -17,12 +17,16 @@ namespace Project
     {
         //private float speed = 0.006f;
         private float projectileSpeed = 20;
-        private float xSpeed = 0;
-        private float zSpeed = 0;
-        private float angularVelocity;
-        private float radius;
-        private float xAngle = 0;
-        private float zAngle = 0;
+        public float xSpeed = 0;
+        public float zSpeed = 0;
+        public float angularVelocity;
+        public float radius;
+        public float xAngle = 0;
+        public float zAngle = 0;
+        public float xAngularVelocity;
+        public float zAngularVelocity;
+        private float frictionConstant;
+        private Vector3 prevPos;
 
         public Player(LabGame game)
         {
@@ -30,6 +34,7 @@ namespace Project
             type = GameObjectType.Player;
             myModel = game.assets.GetModel("player", CreatePlayerModel);
             radius = 0.5f;
+            frictionConstant = 0.4f;
             pos = new SharpDX.Vector3(0, 0, 0);
             GetParamsFromModel();
             effect = game.Content.Load<Effect>("Phong");
@@ -65,28 +70,91 @@ namespace Project
             // TASK 1: Determine velocity based on accelerometer reading
             //pos.X += (float)game.accelerometerReading.AccelerationX;
             //pos.Z += (float)game.accelerometerReading.AccelerationY;
+            prevPos = pos;
 
-            xSpeed = (float)game.accelerometerReading.AccelerationX * 0.2f;
-            zSpeed = (float)game.accelerometerReading.AccelerationY * 0.2f;
+            xSpeed += (float)game.accelerometerReading.AccelerationX * 0.2f;
+            xSpeed -= xSpeed * frictionConstant;
+            zSpeed += (float)game.accelerometerReading.AccelerationY * 0.2f;
+            zSpeed -= zSpeed * frictionConstant;
             pos.X += xSpeed;
             pos.Z += zSpeed;
-            xAngle += xSpeed * radius;
-            zAngle += zSpeed * radius;
-            angularVelocity = (float)Math.Sqrt(xSpeed * xSpeed + zSpeed * zSpeed) * radius;
+            //xAngle += xSpeed * radius;
+            //zAngle += zSpeed * radius;
+            xAngularVelocity = xSpeed / radius;
+            zAngularVelocity = zSpeed / radius;
+            //xAngle = pos.X / radius;
+            //zAngle = pos.Z / radius;
+            xAngle += xAngularVelocity;
+            zAngle += zAngularVelocity;
+            //angularVelocity = (float)Math.Sqrt(xSpeed * xSpeed + zSpeed * zSpeed) * radius;
 
             // Keep within the boundaries.
-            if (pos.X < game.boundaryLeft) { pos.X = game.boundaryLeft; }
-            if (pos.X > game.boundaryRight) { pos.X = game.boundaryRight; }
-            if (pos.Z < game.boundaryFront) { pos.Z = game.boundaryFront; }
-            if (pos.Z > game.boundaryBack) { pos.Z = game.boundaryBack; }
-
-            basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(pos.Z, pos.Y, -pos.X)), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            //if (pos.X < game.boundaryLeft) { pos.X = game.boundaryLeft; }
+            //if (pos.X > game.boundaryRight) { pos.X = game.boundaryRight; }
+            //if (pos.Z < game.boundaryFront) { pos.Z = game.boundaryFront; }
+            //if (pos.Z > game.boundaryBack) { pos.Z = game.boundaryBack; }
+            /*if (xSpeed * zSpeed <= 0)
+            {
+                //basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(zSpeed, 0, -xSpeed)), angularVelocity) * Matrix.Translation(pos);
+                basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(zSpeed, 0, -xSpeed)), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            }
+            else
+            {
+                //basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(-zSpeed, 0, xSpeed)), angularVelocity) * Matrix.Translation(pos);
+                basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(-zSpeed, 0, xSpeed)), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            }*/
+            /*if (xAngle >= 0 && zAngle >= 0)
+            {
+                basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(Math.Abs(zSpeed), 0, -Math.Abs(xSpeed))), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            }
+            else if (xAngle >= 0 && zAngle < 0)
+            {
+                basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(-Math.Abs(zSpeed), 0, -Math.Abs(xSpeed))), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            }
+            else if (xAngle < 0 && zAngle >= 0)
+            {
+                basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(Math.Abs(zSpeed), 0, Math.Abs(xSpeed))), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            }
+            else
+            {
+                basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(-Math.Abs(zSpeed), 0, Math.Abs(xSpeed))), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            }*/
+            /*if (pos.X * pos.Z <= 0)
+            {
+                //basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(zSpeed, 0, -xSpeed)), angularVelocity) * Matrix.Translation(pos);
+                basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(pos.Z, 0, -pos.X)), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            }
+            else
+            {
+                //basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(-zSpeed, 0, xSpeed)), angularVelocity) * Matrix.Translation(pos);
+                basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(-pos.Z, 0, pos.X)), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            }*/
+            /*if (xSpeed * zSpeed <= 0)
+            {
+                //basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(zSpeed, 0, -xSpeed)), angularVelocity) * Matrix.Translation(pos);
+                basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(zSpeed, 0, -xSpeed)), (float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            }
+            else
+            {
+                //basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(-zSpeed, 0, xSpeed)), angularVelocity) * Matrix.Translation(pos);
+                basicEffect.World = Matrix.RotationAxis(Vector3.Normalize(new Vector3(-zSpeed, 0, xSpeed)), -(float)Math.Sqrt(xAngle * xAngle + zAngle * zAngle)) * Matrix.Translation(pos);
+            }*/
+            /*if (xSpeed * zSpeed <= 0)
+            {
+                basicEffect.World = Matrix.RotationX(zAngle) * Matrix.RotationZ(-xAngle) * Matrix.Translation(pos);
+            }
+            else
+            {
+                basicEffect.World = Matrix.RotationX(-zAngle) * Matrix.RotationZ(xAngle) * Matrix.Translation(pos);
+            }*/
+            //basicEffect.World = Matrix.RotationX(zAngle) * Matrix.RotationAxis(new Vector3(0, 0, -1), xAngle) * Matrix.Translation(pos);
+            basicEffect.World = basicEffect.World * Matrix.Translation(-prevPos) * Matrix.RotationX(zAngularVelocity) * Matrix.RotationAxis(new Vector3(0, 0, -1), xAngularVelocity) * Matrix.Translation(pos);
         }
         public override void Draw(GameTime gametime)
         {
             if (myModel != null)
             {
-                basicEffect.View = game.camera.View;
+                //basicEffect.View = game.camera.View;
                 effect.Parameters["World"].SetValue(basicEffect.World);
                 effect.Parameters["View"].SetValue(basicEffect.View);
                 effect.Parameters["Projection"].SetValue(basicEffect.Projection);
