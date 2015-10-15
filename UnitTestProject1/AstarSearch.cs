@@ -6,12 +6,34 @@ using System.Threading.Tasks;
 
 namespace UnitTestProject1
 {
-    class AstarSearch
+    public class AstarSearch
     {
-        static int VISITED = 1;
-        static int NOT_VISITED = 0;
-        AstarSearch()
+        static byte VISITED = 1;
+        static byte NOT_VISITED = 0;
+        public AstarSearch()
         {
+        }
+
+        public void initailize2DArrayToValue<T>(T[,] array, T value)
+        {
+            int rowDim=array.GetLength(0);
+            int colDim=array.GetLength(1);
+            for (int row = 0; row < rowDim; row++)
+            {
+                for (int col = 0; col < colDim; col++)
+                {
+                    array[row, col] = value;
+                }
+            }
+        }
+
+        public void printPath (List<Node>path)
+        {
+            foreach (var tempNode in path)
+            {
+                Console.Write(" | " + tempNode + " | ");
+            }
+            Console.WriteLine();
         }
         //return the list of nodes which formed the parth from src to dest. 
         //in world bigger or equal to limit means can't move to there 
@@ -19,25 +41,89 @@ namespace UnitTestProject1
         public List<Node> FindPath(int[,] world, int limit, int srcX, int srcY, int destX, int destY)
         {
             // int[row,col];
-            int worldDimension = world.Length;
+            //row size = > world.GetLength(0)
+            int worldDimension = world.GetLength(0);
             //1 means visited . 0 means not visited 
             byte[,] visitedPositions = new byte[worldDimension, worldDimension];
+
+            //initialize visit array to not visited 
+            initailize2DArrayToValue(visitedPositions,NOT_VISITED);
+
             Node headNode = new Node(srcX,srcY,null);
             headNode.manhattenDistanceToGoal = CalManhattenDistance(headNode.x, headNode.y, destX, destY);
             Node tempNode = headNode;
+            Node removeNode = null;
             List<Node> neighborNodes = null;
             List<Node> path =null;
+
+            //visited head
+            
             while (true)
             {
-                if (tempNode == null||(tempNode.x==destX&&tempNode.y==destY))
+                if (tempNode == null)
                 {
+                    path=null;
                     break;
                 }
 
-                
+                visitedPositions[tempNode.y, tempNode.x] = VISITED;
+                Console.WriteLine("==== tempNode.y =>" + tempNode.y + " tempNode.x => " + tempNode.x + "====");
+                    
+                if(tempNode.x==destX&&tempNode.y==destY)
+                {
+                    path = BackTrackBuildPath(tempNode);
+                    break;
+                }
+
+                if (tempNode.childNodes == null)
+                {
+                    neighborNodes = GetValidNeighborNodes(tempNode, limit, worldDimension, world, visitedPositions);
+                    tempNode.childNodes = neighborNodes;
+                }
+
+
+                if (tempNode.childNodes == null||tempNode.childNodes.Count==0)
+                {
+                    
+                    removeNode = tempNode;
+                    tempNode = tempNode.parent;
+                    tempNode.removeChildNode(removeNode);
+                    removeNode.freeNode();
+                    continue;
+                }
+
+                FillManhattenDistance(tempNode.childNodes, destX, destY);
+
+                Console.WriteLine("childnodes Len => " + tempNode.childNodes.Count);
+                tempNode = tempNode.LeastManhattenChildNode();
             }
             return path;
         }
+
+        public List<Node> BackTrackBuildPath(Node goalNode)
+        {
+            int head = 0;
+            List<Node> path = new List<Node>();
+            Node tempNode = goalNode;
+            while(tempNode.parent!=null)
+            {
+                path.Insert(head, tempNode);
+                tempNode = tempNode.parent;
+                
+            }
+            //last node;
+            path.Insert(head,tempNode);
+            
+
+            if (path.Count == 0)
+            {
+                Console.Write("BackTrackBuildPath => No Path Found.");
+                return null;
+            }
+
+            return path;
+        }
+
         //less manhatten distance == closer
         public int CalManhattenDistance(int srcX,int srcY, int destX, int destY)
         {
@@ -65,14 +151,15 @@ namespace UnitTestProject1
             //x = col , y =row ;
             int startX = start.x;
             int startY = start.y;
-            int[] eightDirectionCol = { -1, 0, 1, -1, 0, 1, -1, 0, 1 };
-            int[] eightDirectionRow = { -1, -1, -1, 0, 0, 0, 1, 1, 1 };
+            int[] eightDirectionCol = { -1, 0, 1, -1, 1, -1, 0, 1 };
+            int[] eightDirectionRow = { -1, -1, -1, 0, 0, 1, 1, 1 };
             int tempCol;
             int tempRow;
             for (int i = 0; i < eightDirectionCol.Length; i++)
             {
                 tempCol = startX + eightDirectionCol[i];
                 tempRow = startY + eightDirectionRow[i];
+                
                 if(tempCol>=worldDimention||
                     tempCol<0||
                     tempRow>=worldDimention||
@@ -80,9 +167,15 @@ namespace UnitTestProject1
                     visisted[tempRow,tempCol]==VISITED||
                     world[tempRow,tempCol]>=limit)
                 {
+                    Console.WriteLine(" tempCol => " + 
+                        tempCol + 
+                        " tempRow => " + 
+                        tempRow+" worldDim => "+
+                        worldDimention);
                     continue;
                 }
                 //public Node(int x, int y, Node parent)
+                Console.WriteLine("here");
                 validNeighborNodes.Add(new Node(tempCol,tempRow,start));
             }
             if (validNeighborNodes.Count == 0)
