@@ -51,6 +51,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AstarSearch.cs" />
+    <Compile Include="Node.cs" />
+    <Compile Include="RandomMaze.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

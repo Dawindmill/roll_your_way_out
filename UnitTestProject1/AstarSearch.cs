@@ -26,6 +26,35 @@ namespace UnitTestProject1
                 }
             }
         }
+        public void print2Darray<T>(T[,] array)
+        {
+            int rowDim = array.GetLength(0);
+            int colDim = array.GetLength(1);
+            for (int row = 0; row < rowDim; row++)
+            {
+                for (int col = 0; col < colDim; col++)
+                {
+                    Console.Write("  " + array[row, col] + " ");
+                }
+                Console.WriteLine();
+            }
+
+        }
+
+        public int[,] Float2DtoInt(float[,] array)
+        {
+            int rowDim = array.GetLength(0);
+            int colDim = array.GetLength(1);
+            int[,] result =new int[rowDim,colDim];
+            for (int row = 0; row < rowDim; row++)
+            {
+                for (int col = 0; col < colDim; col++)
+                {
+                    result[row, col] =(int) array[row, col];
+                }
+            }
+            return result;
+        }
 
         public void printPath (List<Node>path)
         {
@@ -143,6 +172,8 @@ namespace UnitTestProject1
             }
             return nodes;
         }
+        //can use annother array said added[,] to track which nodes are already added as other nodes's cildren
+        //so avoid adding using nodes ..
         public List<Node> GetValidNeighborNodes(Node start, int limit, int worldDimention, int[,] world, byte[,] visisted)
         {
             List<Node> validNeighborNodes = new List<Node>();

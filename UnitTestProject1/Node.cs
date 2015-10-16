@@ -14,6 +14,13 @@ namespace UnitTestProject1
         public List<Node> childNodes;
         public int manhattenDistanceToGoal;
         public static int NOT_CALCULATED=-1;
+
+        public Node(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
         public Node(int x, int y, Node parent)
         {
             this.x = x;
