@@ -40,7 +40,7 @@ namespace UnitTestProject1
         public RandomMaze(int dimension, int seed,float roadPercentage)
         {
             //atleast be half dimension apart
-            startAndDestDist = dimension / 2;
+            startAndDestDist = dimension;
             astar = new AstarSearch();
             this.gridNeedToFill = (int)(dimension * dimension * roadPercentage);
             this.dimension=dimension;
@@ -137,8 +137,7 @@ namespace UnitTestProject1
                 }
                 tempDestPoint = edgePoints.ElementAt(randomIndex(edgePoints.Count));
                 edgePoints.Remove(tempDestPoint);
-                if (Math.Abs(startPoint.x - tempDestPoint.x) >= startAndDestDist ||
-                    Math.Abs(startPoint.y - tempDestPoint.y)>=startAndDestDist)
+                if (Math.Sqrt(Math.Pow(Math.Abs(startPoint.x - tempDestPoint.x),2)+ Math.Pow(Math.Abs(startPoint.y - tempDestPoint.y),2)) >= startAndDestDist)
                 {
                     destPoint = tempDestPoint;
                     break;
