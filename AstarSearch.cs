@@ -96,7 +96,7 @@ namespace UnitTestProject1
                 }
 
                 visitedPositions[tempNode.y, tempNode.x] = VISITED;
-                Console.WriteLine("==== tempNode.y =>" + tempNode.y + " tempNode.x => " + tempNode.x + "====");
+                //Console.WriteLine("==== tempNode.y =>" + tempNode.y + " tempNode.x => " + tempNode.x + "====");
                     
                 if(tempNode.x==destX&&tempNode.y==destY)
                 {
@@ -116,6 +116,12 @@ namespace UnitTestProject1
                     
                     removeNode = tempNode;
                     tempNode = tempNode.parent;
+
+                    if (tempNode==null)
+                    {
+                        break;
+                    }
+
                     tempNode.removeChildNode(removeNode);
                     removeNode.freeNode();
                     continue;
@@ -123,7 +129,7 @@ namespace UnitTestProject1
 
                 FillManhattenDistance(tempNode.childNodes, destX, destY);
 
-                Console.WriteLine("childnodes Len => " + tempNode.childNodes.Count);
+                //Console.WriteLine("childnodes Len => " + tempNode.childNodes.Count);
                 tempNode = tempNode.LeastManhattenChildNode();
             }
             return path;
@@ -146,7 +152,7 @@ namespace UnitTestProject1
 
             if (path.Count == 0)
             {
-                Console.Write("BackTrackBuildPath => No Path Found.");
+                //Console.Write("BackTrackBuildPath => No Path Found.");
                 return null;
             }
 
@@ -163,7 +169,7 @@ namespace UnitTestProject1
         {
             if (nodes == null)
             {
-                Console.Write("FillManhattenDistance => input List<MNode> is empty . ");
+                //Console.WriteLine("FillManhattenDistance => input List<MNode> is empty . ");
                 return null;
             }
             foreach(var oneNode in nodes)
@@ -182,8 +188,11 @@ namespace UnitTestProject1
             //x = col , y =row ;
             int startX = start.x;
             int startY = start.y;
-            int[] eightDirectionCol = { -1, 0, 1, -1, 1, -1, 0, 1 };
-            int[] eightDirectionRow = { -1, -1, -1, 0, 0, 1, 1, 1 };
+            //int[] eightDirectionCol = { -1, 0, 1, -1, 1, -1, 0, 1 };
+            //int[] eightDirectionRow = { -1, -1, -1, 0, 0, 1, 1, 1 };
+            //search 4 direction instead of 8
+            int[] eightDirectionCol = { 0, -1, 1, 0 };
+            int[] eightDirectionRow = { -1, 0, 0, 1 };
             int tempCol;
             int tempRow;
             for (int i = 0; i < eightDirectionCol.Length; i++)
@@ -198,15 +207,11 @@ namespace UnitTestProject1
                     visisted[tempRow,tempCol]==VISITED||
                     world[tempRow,tempCol]>=limit)
                 {
-                    Console.WriteLine(" tempCol => " + 
-                        tempCol + 
-                        " tempRow => " + 
-                        tempRow+" worldDim => "+
-                        worldDimention);
+
                     continue;
                 }
                 //public Node(int x, int y, Node parent)
-                Console.WriteLine("here");
+                //Console.WriteLine("here");
                 validNeighborNodes.Add(new Node(tempCol,tempRow,start));
             }
             if (validNeighborNodes.Count == 0)
