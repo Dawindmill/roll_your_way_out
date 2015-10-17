@@ -12,6 +12,7 @@ namespace Project
 {
     using SharpDX.Toolkit.Graphics;
     using SharpDX.Toolkit.Input;
+    using System.Diagnostics;
     // Player class.
     public class Player : GameObject
     {
@@ -38,12 +39,15 @@ namespace Project
             pos = new SharpDX.Vector3(0, 0, 0);
             GetParamsFromModel();
             effect = game.Content.Load<Effect>("Phong");
+            
         }
 
         public MyModel CreatePlayerModel()
         {
             return game.assets.CreateTexturedCube("player.png", 0.7f);
         }
+
+
 
         // Method to create projectile texture to give to newly created projectiles.
         private MyModel CreatePlayerProjectileModel()

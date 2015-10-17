@@ -39,6 +39,15 @@ namespace Project
             return CreateTexturedCube(textureName, new Vector3(size, size, size));
         }
 
+        public MyModel CreateMazeLandscapeCube(int dimension, int seed,int cubeScale,RandomMaze maze)
+        {
+            Cube cube = new Cube();
+            return new MyModel(game,
+                cube.DrawMazeWithCube(maze.maze,cubeScale),
+                "cube",1);
+
+        }
+
         public MyModel CreateTexturedCube(String texturePath, Vector3 size)
         {
             Vector3 frontNorm = new Vector3(0, 0, -1);
