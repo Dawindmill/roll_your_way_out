@@ -44,7 +44,9 @@ namespace Project
                 basicEffect.DirectionalLight0.SpecularColor = new Vector3(1, 1, 1);
                 basicEffect.PreferPerPixelLighting = true;*/
                 //basicEffect.CurrentTechnique.Passes[0].Apply();
+
                 game.GraphicsDevice.Draw(PrimitiveType.TriangleList, myModel.vertices.ElementCount);
+
             }
         }
 

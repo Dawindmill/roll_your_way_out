@@ -160,6 +160,7 @@ namespace Project
                 effect.Parameters["Projection"].SetValue(basicEffect.Projection);
                 effect.Parameters["cameraPos"].SetValue(new Vector4(game.camera.pos.X, game.camera.pos.Y, game.camera.pos.Z, 1));
                 effect.Parameters["lightPntPos"].SetValue(new Vector4(50, 50, -50, 1));
+                effect.Parameters["worldInvTrp"].SetValue(Matrix.Transpose(Matrix.Invert(basicEffect.World)));
                 effect.Techniques[0].Passes[0].Apply();
             }
             // Some objects such as the Enemy Controller have no model and thus will not be drawn
@@ -174,7 +175,7 @@ namespace Project
 
         public override void Tapped(GestureRecognizer sender, TappedEventArgs args)
         {
-            fire();
+            //fire();
         }
 
         public override void OnManipulationUpdated(GestureRecognizer sender, ManipulationUpdatedEventArgs args)

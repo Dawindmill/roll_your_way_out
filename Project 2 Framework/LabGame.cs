@@ -32,6 +32,7 @@ namespace Project
     // namespace will override the Direct3D11.
     using SharpDX.Toolkit.Graphics;
     using SharpDX.Toolkit.Input;
+    using SharpDX.Direct3D;
 
     public class LabGame : Game
     {
@@ -70,6 +71,7 @@ namespace Project
         public float boundaryBack;
 
         public bool started = false;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
         /// </summary>
@@ -77,7 +79,6 @@ namespace Project
         {
             // Creates a graphics manager. This is mandatory.
             graphicsDeviceManager = new GraphicsDeviceManager(this);
-
             // Setup the relative directory to the executable directory
             // for loading contents with the ContentManager
             Content.RootDirectory = "Content";
@@ -122,6 +123,7 @@ namespace Project
 
             // Create an input layout from the vertices
 
+
             base.LoadContent();
         }
 
@@ -131,7 +133,7 @@ namespace Project
             camera = new Camera(this);
             player = new Player(this);
             sphere = new Sphere(Content.Load<Model>("sphere"), this);
-
+            //testModel = Content.Load<Model>("woodsphere_obj");
             base.Initialize();
         }
 
@@ -144,7 +146,7 @@ namespace Project
                 accelerometerReading = input.accelerometer.GetCurrentReading();
                 for (int i = 0; i < gameObjects.Count; i++)
                 {
-                    gameObjects[i].Update(gameTime);
+                   gameObjects[i].Update(gameTime);
                 }
 
                 mainPage.UpdateScore(score);
@@ -157,6 +159,9 @@ namespace Project
                 }
                 camera.Update();
                 // Handle base.Update
+
+
+
             }
             base.Update(gameTime);
 
@@ -173,6 +178,8 @@ namespace Project
                 {
                     gameObjects[i].Draw(gameTime);
                 }
+                sphere.Draw(gameTime);
+                //testModel.Draw(GraphicsDevice, world, view, projection);
             }
             // Handle base.Draw
             base.Draw(gameTime);

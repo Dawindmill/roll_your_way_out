@@ -79,6 +79,9 @@
     <Content Include="Content\enemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <ToolkitTexture Include="Content\wood.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </ToolkitTexture>
     <ToolkitFxc Include="Content\Gouraud.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </ToolkitFxc>
@@ -169,6 +172,15 @@
     </ToolkitModel>
   </ItemGroup>
   <ItemGroup>
+    <ToolkitModel Include="Content\woodsphere.3ds">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </ToolkitModel>
+    <ToolkitModel Include="Content\woodsphere_obj.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </ToolkitModel>
+    <ToolkitModel Include="Content\woodsphere_fbx.fbx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </ToolkitModel>
     <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
