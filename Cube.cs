@@ -27,9 +27,9 @@ namespace Project1
         Vector3 backBottomRightNormal = new Vector3(0.333f, -0.333f, 0.333f);
         Vector3 backTopLeftNormal = new Vector3(-0.333f, 0.333f, 0.333f);
         Vector3 backTopRightNormal = new Vector3(0.333f, 0.333f, 0.333f);
-        float wall=1;
-        float road=0;
-        float goal = 2;
+        public static float wall=1;
+        public static float road=0;
+        public static float goal = 2;
 
 
         //assume square maze
