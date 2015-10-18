@@ -132,33 +132,68 @@ namespace Project
 
         public void CollisionDetection(Vector3 next)
         {
-            Vector2 pos = PositionInMaze(next);
+            List<Vector2> posList = new List<Vector2>();
+            Vector3 left = new Vector3();
+            left.X = next.X - radius;
+            left.Z = next.Z;
+            Vector2 leftMaze = PositionInMaze(left);
+
+            Vector3 right = new Vector3();
+            right.X = next.X + radius;
+            right.Z = next.Z;
+            Vector2 rightMaze = PositionInMaze(right);
+
+            Vector3 up = new Vector3();
+            up.X = next.X;
+            up.Z = next.Z - radius;
+            Vector2 upMaze = PositionInMaze(up);
+
+            Vector3 down = new Vector3();
+            down.X = next.X;
+            down.Z = next.Z + radius;
+            Vector2 downMaze = PositionInMaze(down);
+
 
             float[,] maze = this.game.mazeLandscape.maze.maze;
 
-            if (maze[(int)(pos.X - radius), (int)pos.Y] == 1 ||
-                maze[(int)(pos.X + radius), (int)pos.Y] == 1)
+            //System.Diagnostics.Debug.WriteLine("Left:" + left.X + " " + left.Y);
+            //System.Diagnostics.Debug.WriteLine("Right:" + right.X + " " + right.Y);
+
+            if (maze[(int)leftMaze.Y, (int)(leftMaze.X)] == 1 ||
+                maze[(int)rightMaze.Y, (int)(rightMaze.X)] == 1)
             {
                 isCollidedX = true;
-                System.Diagnostics.Debug.WriteLine((int)pos.X + " " + (int)pos.Y);
 
             }
 
-            if (maze[(int)pos.X, (int)(pos.Y - radius)] == 1 ||
-                maze[(int)pos.X, (int)(pos.Y + radius)] == 1)
+            if (maze[(int)(upMaze.Y), (int)upMaze.X] == 1 ||
+                maze[(int)(downMaze.Y), (int)downMaze.X] == 1)
             {
                 isCollidedZ = true;
             }
         }
 
 
-        public Vector2 PositionInMaze(Vector3 pos)
+        public Vector2 PositionInMaze(Vector3 nextPos)
         {
             float cube_side = 2 * MazeLandscape.CUBESCALE;
 
             Vector2 newPos = new Vector2();
-            newPos.X = (int)pos.X / cube_side;
-            newPos.Y = (int)pos.Z / cube_side;
+
+            newPos.X = (int)nextPos.X / cube_side;
+            newPos.Y = (int)nextPos.Z / cube_side;
+
+            if (newPos.X < 0)
+            {
+                newPos.X = 0;
+            }
+
+            if (newPos.Y < 0)
+            {
+                newPos.Y = 0;
+            }
+
+
             return newPos;
         }
     }
