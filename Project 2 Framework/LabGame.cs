@@ -75,7 +75,7 @@ namespace Project
         public bool started = false;
 
         int mazeDimension = 50;
-        int mazeSeed = 213123;
+        int mazeSeed = 54654;
 
         public float accelerationFraction;
 
