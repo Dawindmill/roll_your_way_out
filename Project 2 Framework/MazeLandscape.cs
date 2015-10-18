@@ -14,7 +14,7 @@ namespace Project
     {
         int dimension;
         int seed;
-        public static float CUBESCALE=2.0f;
+        public static float CUBESCALE = 2.0f;
         public RandomMaze maze;
         public float entranceX;
         public float entranceZ;

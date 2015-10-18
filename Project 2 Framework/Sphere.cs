@@ -26,7 +26,8 @@ namespace Project
         public float xAngularVelocity;
         public float zAngularVelocity;
         private float frictionConstant;
-        private Vector3 prevPos;
+        public Vector3 prevPos;
+        public Vector3 nextPos;
         private float scallingFactor = 0.5f;
         public bool isCollidedX = false;
         public bool isCollidedZ = false;
@@ -83,23 +84,37 @@ namespace Project
             basicEffect.View = game.camera.View;
             //projection = game.camera.Projection;
 
+            nextPos = prevPos;
 
-            prevPos = pos;
+
+            xSpeed += (float)game.accelerometerReading.AccelerationX * 0.2f;
+            xSpeed -= xSpeed * frictionConstant;
+
+            zSpeed += (float)game.accelerometerReading.AccelerationY * 0.2f;
+            zSpeed -= zSpeed * frictionConstant;
+
+            nextPos.X += xSpeed;
+            nextPos.Z += zSpeed;
+
+
+
+            CollisionDetection(nextPos);
+
 
             if (isCollidedX)
             {
-                xSpeed = -xSpeed;
+                //xSpeed = -xSpeed;
+                xSpeed = 0;
                 isCollidedX = false;
             }
             if (isCollidedZ)
             {
-                zSpeed = -zSpeed;
+                //zSpeed = -zSpeed;
+                zSpeed = 0;
                 isCollidedZ = false;
             }
-            xSpeed += (float)game.accelerometerReading.AccelerationX * 0.2f;
-            xSpeed -= xSpeed * frictionConstant;
-            zSpeed += (float)game.accelerometerReading.AccelerationY * 0.2f;
-            zSpeed -= zSpeed * frictionConstant;
+
+            prevPos = pos;
 
             pos.X += xSpeed;
             pos.Z += zSpeed;
@@ -115,5 +130,36 @@ namespace Project
             basicEffect.World = basicEffect.World * Matrix.Translation(-prevPos) * Matrix.RotationZ(xAngularVelocity) * Matrix.RotationAxis(new Vector3(-1, 0, 0), zAngularVelocity) * Matrix.Translation(pos);
         }
 
+        public void CollisionDetection(Vector3 next)
+        {
+            Vector2 pos = PositionInMaze(next);
+
+            float[,] maze = this.game.mazeLandscape.maze.maze;
+
+            if (maze[(int)(pos.X - radius), (int)pos.Y] == 1 ||
+                maze[(int)(pos.X + radius), (int)pos.Y] == 1)
+            {
+                isCollidedX = true;
+                System.Diagnostics.Debug.WriteLine((int)pos.X + " " + (int)pos.Y);
+
+            }
+
+            if (maze[(int)pos.X, (int)(pos.Y - radius)] == 1 ||
+                maze[(int)pos.X, (int)(pos.Y + radius)] == 1)
+            {
+                isCollidedZ = true;
+            }
+        }
+
+
+        public Vector2 PositionInMaze(Vector3 pos)
+        {
+            float cube_side = 2 * MazeLandscape.CUBESCALE;
+
+            Vector2 newPos = new Vector2();
+            newPos.X = (int)pos.X / cube_side;
+            newPos.Y = (int)pos.Z / cube_side;
+            return newPos;
+        }
     }
 }
