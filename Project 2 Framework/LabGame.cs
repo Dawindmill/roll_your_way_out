@@ -279,7 +279,7 @@ namespace Project
             if (maze[(int)pos.X, (int)(pos.Y - radius)] == 1 && 
                 maze[(int)pos.X, (int)(pos.Y + radius)] == 1)
             {
-                sphere.isCollidedY = true;
+                sphere.isCollidedZ = true;
             }
         }
 
@@ -290,8 +290,7 @@ namespace Project
 
             Vector2 newPos = new Vector2();
             newPos.X = (int)pos.X / cube_side;
-            newPos.Y = (int)pos.Y / cube_side;
-
+            newPos.Y = (int)pos.Z / cube_side;
             return newPos;
         }
     }

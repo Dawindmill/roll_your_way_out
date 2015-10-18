@@ -29,7 +29,7 @@ namespace Project
         private Vector3 prevPos;
         private float scallingFactor = 0.5f;
         public bool isCollidedX = false;
-        public bool isCollidedY = false;
+        public bool isCollidedZ = false;
 
         public Sphere(Model sphere,LabGame game)
         {
@@ -86,6 +86,16 @@ namespace Project
 
             prevPos = pos;
 
+            if (isCollidedX)
+            {
+                xSpeed = -xSpeed;
+                isCollidedX = false;
+            }
+            if (isCollidedZ)
+            {
+                zSpeed = -zSpeed;
+                isCollidedZ = false;
+            }
             xSpeed += (float)game.accelerometerReading.AccelerationX * 0.2f;
             xSpeed -= xSpeed * frictionConstant;
             zSpeed += (float)game.accelerometerReading.AccelerationY * 0.2f;
