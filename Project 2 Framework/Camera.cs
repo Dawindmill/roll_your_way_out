@@ -18,7 +18,7 @@ namespace Project
 
         // Ensures that all objects are being rendered from a consistent viewpoint
         public Camera(LabGame game) {
-            pos_relative_to_player = new Vector3(0, 5, -5);
+            pos_relative_to_player = new Vector3(0, 15, -10);
             //pos = new Vector3(game.mazeLandscape.maze.startPoint.x, 0, game.mazeLandscape.maze.startPoint.y) + pos_relative_to_player;
            // pos = new Vector3(5000,5000,12000);
             //View = Matrix.LookAtLH(pos, new Vector3(0, 0, 0), Vector3.UnitY);
