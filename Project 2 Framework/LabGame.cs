@@ -156,6 +156,7 @@ namespace Project
                 keyboardState = keyboardManager.GetState();
                 flushAddedAndRemovedGameObjects();
                 accelerometerReading = input.accelerometer.GetCurrentReading();
+                CollisionDetection();
                 for (int i = 0; i < gameObjects.Count; i++)
                 {
                    gameObjects[i].Update(gameTime);
@@ -171,7 +172,7 @@ namespace Project
                 }
                 camera.Update();
                 // Handle base.Update
-
+                
 
 
             }
@@ -262,5 +263,36 @@ namespace Project
         {
         }
 
+
+        public void CollisionDetection()
+        {
+            Vector2 pos = PositionInMaze(sphere.pos);
+            float radius = sphere.radius;
+            float[,] maze = mazeLandscape.maze.maze;
+
+            if (maze[(int)(pos.X - radius), (int)pos.Y] == 1 &&
+                maze[(int)(pos.X + radius), (int)pos.Y] == 1)
+            {
+                sphere.isCollidedX = true;
+            }
+
+            if (maze[(int)pos.X, (int)(pos.Y - radius)] == 1 && 
+                maze[(int)pos.X, (int)(pos.Y + radius)] == 1)
+            {
+                sphere.isCollidedY = true;
+            }
+        }
+
+        
+        public Vector2 PositionInMaze(Vector3 pos)
+        {
+            float cube_side = 2 * MazeLandscape.CUBESCALE;
+
+            Vector2 newPos = new Vector2();
+            newPos.X = (int)pos.X / cube_side;
+            newPos.Y = (int)pos.Y / cube_side;
+
+            return newPos;
+        }
     }
 }
