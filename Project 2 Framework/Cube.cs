@@ -34,7 +34,7 @@ namespace Project
 
 
         //assume square maze
-        public VertexPositionNormalColor[] DrawMazeWithCube(float[,] maze,int scale)
+        public VertexPositionNormalColor[] DrawMazeWithCube(float[,] maze,float scale)
         {
             VertexPositionNormalColor[] sampleCube = GenerateScaledPolygon(GetUnitCube(), scale);
             VertexPositionNormalColor[] sampleRoad = GenerateScaledPolygon(GetUnitCubeFloor(Color.Green), scale);
@@ -51,7 +51,7 @@ namespace Project
                     if(maze[row,col]==wall)
                     {
                         tempCube = (VertexPositionNormalColor[])sampleCube.Clone();
-                        tempCube = TranslatePolygonInXY(tempCube, new Vector3((float)scale * 2 * col, (float)scale * 2 * row, 0.0f));
+                        tempCube = TranslatePolygonInXY(tempCube, new Vector3((float)scale * 2 * col, 0.0f, (float)scale * 2 * row));
                         for (int i = 0; i < tempCube.Length; i++)
                         {
                             mazeCubes[countIndex++] = tempCube[i];
@@ -60,7 +60,7 @@ namespace Project
                     if (maze[row, col] == goal)
                     {
                         tempRoad = GenerateScaledPolygon(GetUnitCubeFloor(Color.Purple), scale);
-                        tempRoad = TranslatePolygonInXY(tempRoad, new Vector3((float)scale * 2 * col, (float)scale * 2 * row, 0.0f));
+                        tempRoad = TranslatePolygonInXY(tempRoad, new Vector3((float)scale * 2 * col, 0.0f, (float)scale * 2 * row));
                         for (int i = 0; i < tempRoad.Length; i++)
                         {
                             mazeCubes[countIndex++] = tempRoad[i];
@@ -70,7 +70,7 @@ namespace Project
                     if (maze[row, col] == road)
                     {
                         tempRoad = (VertexPositionNormalColor[])sampleRoad.Clone();
-                        tempRoad = TranslatePolygonInXY(tempRoad, new Vector3((float)scale * 2 * col, (float)scale * 2 * row, 0.0f));
+                        tempRoad = TranslatePolygonInXY(tempRoad, new Vector3((float)scale * 2 * col, 0.0f, (float)scale * 2 * row));
                         for (int i = 0; i < tempRoad.Length; i++)
                         {
                             mazeCubes[countIndex++] = tempRoad[i];
@@ -81,7 +81,7 @@ namespace Project
             return mazeCubes;    
         }
 
-        public VertexPositionNormalColor[] GenerateScaledPolygon(VertexPositionNormalColor[] unitCube, int scale)
+        public VertexPositionNormalColor[] GenerateScaledPolygon(VertexPositionNormalColor[] unitCube, float scale)
         {
             for (int i = 0; i < unitCube.Length; i++)
             {

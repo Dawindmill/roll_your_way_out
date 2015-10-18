@@ -39,7 +39,7 @@ namespace Project
             return CreateTexturedCube(textureName, new Vector3(size, size, size));
         }
 
-        public MyModel CreateMazeLandscapeCube(int dimension, int seed,int cubeScale,RandomMaze maze)
+        public MyModel CreateMazeLandscapeCube(int dimension, int seed,float cubeScale,RandomMaze maze)
         {
             Cube cube = new Cube();
             return new MyModel(game,

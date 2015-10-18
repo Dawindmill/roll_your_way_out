@@ -43,7 +43,7 @@ namespace Project
 
         private void LoadInstructions(object sender, RoutedEventArgs e)
         {
-            parent.Children.Add(new Instructions(parent));
+            parent.Children.Add(new Help(parent));
             parent.Children.Remove(this);
         }
 

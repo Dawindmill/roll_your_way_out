@@ -14,7 +14,7 @@ namespace Project
     {
         int dimension;
         int seed;
-        static int CUBESCALE=100;
+        static float CUBESCALE=0.5f;
         public RandomMaze maze;
         public MazeLandscape(LabGame game,int dimension,int seed )
         {

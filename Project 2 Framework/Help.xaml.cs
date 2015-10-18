@@ -28,10 +28,10 @@ namespace Project
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     // TASK 4: Instructions Page
-    public sealed partial class Instructions
+    public sealed partial class Help
     {
         private MainPage parent;
-        public Instructions(MainPage parent)
+        public Help(MainPage parent)
         {
             InitializeComponent();
             this.parent = parent;
