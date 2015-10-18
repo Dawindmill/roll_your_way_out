@@ -56,9 +56,7 @@ namespace Project
             //pos = model.BoundingSphere.Center;
           //  pos = new Vector3(-model.BoundingSphere.Center.X,-model.BoundingSphere.Center.Y,-model.BoundingSphere.Center.Z);
             //pos = new Vector3(game.mazeLandscape.maze.startPoint.x, 3, game.mazeLandscape.maze.startPoint.y);
-            pos = new Vector3(game.mazeLandscape.maze.startPoint.x * MazeLandscape.CUBESCALE*2, 
-                0,
-                game.mazeLandscape.maze.startPoint.y * MazeLandscape.CUBESCALE*2 );
+            pos = new Vector3(game.mazeLandscape.entranceX, 0, game.mazeLandscape.entranceZ);
             basicEffect.World = Matrix.Translation(pos);// * Matrix.Scaling(1f);
             //effect = game.Content.Load<Effect>("Phong");
 

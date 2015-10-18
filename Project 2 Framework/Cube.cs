@@ -121,7 +121,7 @@ namespace Project
         public VertexPositionNormalColor[] GetUnitCube()
         {
             return new VertexPositionNormalColor[]{
-             new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Purple), // Front
+                new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Purple), // Front
                     new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, Color.Purple),
                     new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, Color.Purple),
                     new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Purple),
