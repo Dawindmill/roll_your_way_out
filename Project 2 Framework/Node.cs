@@ -51,7 +51,7 @@ namespace Project
         {
             if (childNodes == null)
             {
-                Console.WriteLine("removeChildNode => childNodes is empty.");
+                //Console.WriteLine("removeChildNode => childNodes is empty.");
             }
 
             childNodes.Remove(childNode);
@@ -63,7 +63,7 @@ namespace Project
 
             if(childNodes==null)
             {
-                Console.Write("LeastManhattenNode childNode is empty");
+                //Console.Write("LeastManhattenNode childNode is empty");
                 return tempNode;
             }
 

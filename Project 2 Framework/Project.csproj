@@ -41,7 +41,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets.cs" />
+    <Compile Include="AstarSearch.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Cube.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyController.cs" />
     <Compile Include="GameInput.cs" />
@@ -51,7 +53,9 @@
     <Compile Include="Instructions.xaml.cs">
       <DependentUpon>Instructions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MazeLandscape.cs" />
     <Compile Include="MyModel.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Projectile.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -60,6 +64,7 @@
     <Compile Include="LabGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="RandomMaze.cs" />
     <Compile Include="Sphere.cs" />
     <Compile Include="VertexPositionNormalColor.cs" />
   </ItemGroup>
@@ -173,12 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <ToolkitModel Include="Content\woodsphere.3ds">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </ToolkitModel>
-    <ToolkitModel Include="Content\woodsphere_obj.obj">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </ToolkitModel>
-    <ToolkitModel Include="Content\woodsphere_fbx.fbx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </ToolkitModel>
     <None Include="packages.config" />
