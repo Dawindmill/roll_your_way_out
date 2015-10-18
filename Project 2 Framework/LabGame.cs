@@ -43,9 +43,9 @@ namespace Project
         private KeyboardManager keyboardManager;
         public KeyboardState keyboardState;
 
-        public Sphere sphere;
-        public Player player;
-        public MazeLandscape mazeLandscape;
+        public Sphere sphere =null;
+        public Player player = null;
+        public MazeLandscape mazeLandscape = null;
 
         public AccelerometerReading accelerometerReading;
         public GameInput input;
@@ -76,6 +76,8 @@ namespace Project
 
         int mazeDimension = 50;
         int mazeSeed = 213123;
+
+        public float accelerationFraction;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
@@ -122,9 +124,9 @@ namespace Project
             removedGameObjects = new Stack<GameObject>();
            
             // Create game objects.
-            gameObjects.Add(player);
-            gameObjects.Add(sphere);
+            //gameObjects.Add(player);
             gameObjects.Add(mazeLandscape);
+            gameObjects.Add(sphere);
             //gameObjects.Add(new EnemyController(this));
 
             // Create an input layout from the vertices
@@ -137,10 +139,11 @@ namespace Project
         {
             Window.Title = "Lab 4";
             camera = new Camera(this);
+            mazeLandscape = new MazeLandscape(this,mazeDimension,mazeSeed);
             player = new Player(this);
             sphere = new Sphere(Content.Load<Model>("sphere"), this);
+            camera.setStartingPosView();
             
-            mazeLandscape = new MazeLandscape(this,mazeDimension,mazeSeed);
 
             //testModel = Content.Load<Model>("woodsphere_obj");
             base.Initialize();
@@ -166,7 +169,7 @@ namespace Project
                     this.Dispose();
                     App.Current.Exit();
                 }
-                //camera.Update();
+                camera.Update();
                 // Handle base.Update
 
 

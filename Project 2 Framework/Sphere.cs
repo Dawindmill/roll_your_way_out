@@ -13,10 +13,10 @@ namespace Project
     {
 
         public Model model;
-        Matrix view;
-        Matrix world;
-        Matrix projection;
-        BoundingSphere modelBounds;
+        //Matrix view;
+        //Matrix world;
+        //Matrix projection;
+        //BoundingSphere modelBounds;
         public float xSpeed = 0;
         public float zSpeed = 0;
         public float angularVelocity;
@@ -27,6 +27,7 @@ namespace Project
         public float zAngularVelocity;
         private float frictionConstant;
         private Vector3 prevPos;
+        private float scallingFactor = 0.5f;
 
         public Sphere(Model sphere,LabGame game)
         {
@@ -42,42 +43,45 @@ namespace Project
                 VertexColorEnabled = false
             };
             BasicEffect.EnableDefaultLighting(model,true);
-            const float MaxModelSize = 10.0f;
+            //const float MaxModelSize = 10.0f;
             //var scaling = MaxModelSize / modelBounds.Radius;
             //var scaling = MaxModelSize / model.Meshes[0].BoundingSphere.Radius;
-            modelBounds = model.CalculateBounds();
-            view = Matrix.LookAtRH(new Vector3(0, 0, MaxModelSize * 2.5f), new Vector3(0, 0, 0), Vector3.UnitY);
-            projection = Matrix.PerspectiveFovRH(0.9f, (float)game.GraphicsDevice.BackBuffer.Width / game.GraphicsDevice.BackBuffer.Height, 0.1f, MaxModelSize * 10.0f);
-            world = Matrix.Translation(-modelBounds.Center.X, -modelBounds.Center.Y, -modelBounds.Center.Z)*Matrix.Scaling(1);
-            basicEffect.View = game.camera.View;
-            basicEffect.Projection = game.camera.Projection;
+            //modelBounds = model.CalculateBounds();
+            //view = Matrix.LookAtRH(new Vector3(0, 0, MaxModelSize * 2.5f), new Vector3(0, 0, 0), Vector3.UnitY);
+            //projection = Matrix.PerspectiveFovRH(0.9f, (float)game.GraphicsDevice.BackBuffer.Width / game.GraphicsDevice.BackBuffer.Height, 0.1f, MaxModelSize * 10.0f);
+            //world = Matrix.Translation(-modelBounds.Center.X, -modelBounds.Center.Y, -modelBounds.Center.Z) * Matrix.Scaling(0.5f);
+            //basicEffect.View = game.camera.View;
+            //basicEffect.Projection = game.camera.Projection;
             //modelBounds = model.CalculateBounds();
             //pos = model.BoundingSphere.Center;
           //  pos = new Vector3(-model.BoundingSphere.Center.X,-model.BoundingSphere.Center.Y,-model.BoundingSphere.Center.Z);
-            pos = new Vector3(0, 0, 0);
-            //basicEffect.World = Matrix.Translation(pos);// * Matrix.Scaling(1f);
+            //pos = new Vector3(game.mazeLandscape.maze.startPoint.x, 3, game.mazeLandscape.maze.startPoint.y);
+            pos = new Vector3(game.mazeLandscape.maze.startPoint.x * MazeLandscape.CUBESCALE*2, 
+                0,
+                game.mazeLandscape.maze.startPoint.y * MazeLandscape.CUBESCALE*2 );
+            basicEffect.World = Matrix.Translation(pos);// * Matrix.Scaling(1f);
             //effect = game.Content.Load<Effect>("Phong");
 
-            radius = model.Meshes[0].BoundingSphere.Radius;
+            radius = model.Meshes[0].BoundingSphere.Radius * scallingFactor;
             frictionConstant = 0.4f;
 
         }
 
         public override void Draw(GameTime gametime)
         {
-            Matrix[] bones = new Matrix []{ Matrix.Translation(new Vector3(0, 0, 0)) };
+            //Matrix[] bones = new Matrix []{ Matrix.Translation(new Vector3(0, 0, 0)) };
             //model.Effects[0].
             //model.Draw(game.GraphicsDevice, world, view, projection);
 
-                model.Draw(game.GraphicsDevice, world,view, projection);
+            model.Draw(game.GraphicsDevice, basicEffect.World, basicEffect.View, basicEffect.Projection);
                 //base.Draw(gametime);
 
         }
 
         public override void Update(GameTime gameTime)
         {
-            view = game.camera.View;
-            projection = game.camera.Projection;
+            basicEffect.View = game.camera.View;
+            //projection = game.camera.Projection;
 
 
             prevPos = pos;
@@ -96,7 +100,8 @@ namespace Project
             //zAngle = pos.Z / radius;
             xAngle += xAngularVelocity;
             zAngle += zAngularVelocity;
-            basicEffect.World = basicEffect.World * Matrix.Translation(-prevPos) * Matrix.RotationX(zAngularVelocity) * Matrix.RotationAxis(new Vector3(0, 0, -1), xAngularVelocity) * Matrix.Translation(pos);
+            //basicEffect.World = basicEffect.World * Matrix.Translation(-prevPos) * Matrix.RotationX(zAngularVelocity) * Matrix.RotationAxis(new Vector3(0, 0, -1), xAngularVelocity) * Matrix.Translation(pos);
+            basicEffect.World = basicEffect.World * Matrix.Translation(-prevPos) * Matrix.RotationZ(xAngularVelocity) * Matrix.RotationAxis(new Vector3(-1, 0, 0), zAngularVelocity) * Matrix.Translation(pos);
         }
 
     }
