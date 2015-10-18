@@ -28,6 +28,8 @@ namespace Project
         private float frictionConstant;
         private Vector3 prevPos;
         private float scallingFactor = 0.5f;
+        public bool isCollidedX = false;
+        public bool isCollidedY = false;
 
         public Sphere(Model sphere,LabGame game)
         {
@@ -88,6 +90,7 @@ namespace Project
             xSpeed -= xSpeed * frictionConstant;
             zSpeed += (float)game.accelerometerReading.AccelerationY * 0.2f;
             zSpeed -= zSpeed * frictionConstant;
+
             pos.X += xSpeed;
             pos.Z += zSpeed;
             //xAngle += xSpeed * radius;

@@ -59,7 +59,7 @@ namespace Project
                     }
                     if (maze[row, col] == goal)
                     {
-                        tempRoad = GenerateScaledPolygon(GetUnitCubeFloor(Color.Purple), scale);
+                        tempRoad = GenerateScaledPolygon(GetUnitCubeFloor(Color.Yellow), scale);
                         tempRoad = TranslatePolygonInXY(tempRoad, new Vector3((float)scale * 2 * col, 0.0f, (float)scale * 2 * row));
                         for (int i = 0; i < tempRoad.Length; i++)
                         {
