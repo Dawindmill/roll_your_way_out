@@ -117,6 +117,12 @@ namespace Project
             maze.printMaze();
         }
 
+        [TestMethod]
+        public void generalTest()
+        {
+            Console.WriteLine(" answer => " + (int)3.2/4);
+        }
+
 
     }
 }

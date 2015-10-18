@@ -59,7 +59,7 @@ namespace Project
                     }
                     if (maze[row, col] == goal)
                     {
-                        tempRoad = GenerateScaledPolygon(GetUnitCubeFloor(Color.Purple), scale);
+                        tempRoad = GenerateScaledPolygon(GetUnitCubeFloor(Color.Yellow), scale);
                         tempRoad = TranslatePolygonInXY(tempRoad, new Vector3((float)scale * 2 * col, 0.0f, (float)scale * 2 * row));
                         for (int i = 0; i < tempRoad.Length; i++)
                         {
@@ -104,59 +104,99 @@ namespace Project
 
         public VertexPositionNormalColor[] GetUnitCubeFloor(Color color)
         { 
-         return new VertexPositionNormalColor[]{
-             new VertexPositionNormalColor(frontTopRight, new Vector3(0,0,-1), color),
-            
-                    new VertexPositionNormalColor(frontTopLeft, new Vector3(0,0,-1),color),
-                     new VertexPositionNormalColor(frontBottomLeft, new Vector3(0,0,-1), color), // Front
-                    
-
-                      new VertexPositionNormalColor(frontBottomRight, new Vector3(0,0,-1), color),
-                   
-                    new VertexPositionNormalColor(frontTopRight, new Vector3(0,0,-1), color),
-                     new VertexPositionNormalColor(frontBottomLeft, new Vector3(0,0,-1), color),
-                   };
+            return new VertexPositionNormalColor[]{
+                new VertexPositionNormalColor(frontBottomLeft, new Vector3(0, 1, 0), color),
+                new VertexPositionNormalColor(backBottomLeft, new Vector3(0, 1, 0), color),
+                new VertexPositionNormalColor(backBottomRight, new Vector3(0, 1, 0), color),
+                new VertexPositionNormalColor(frontBottomLeft, new Vector3(0, 1, 0), color),
+                new VertexPositionNormalColor(backBottomRight, new Vector3(0, 1, 0), color),
+                new VertexPositionNormalColor(frontBottomRight, new Vector3(0, 1, 0), color),
+            };
         }
         
         public VertexPositionNormalColor[] GetUnitCube()
         {
+            Vector3 upNormal = new Vector3(0, 1, 0);
+            Vector3 downNormal = new Vector3(0, -1, 0);
+            Vector3 frontNormal = new Vector3(0, 0, -1);
+            Vector3 backNormal = new Vector3(0, 0, 1);
+            Vector3 leftNormal = new Vector3(-1, 0, 0);
+            Vector3 rightNormal = new Vector3(1, 0, 0);
             return new VertexPositionNormalColor[]{
-             new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Purple), // Front
-                    new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, Color.Purple),
-                    new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, Color.Purple),
-                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Purple),
-                    new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, Color.Purple),
-                    new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, Color.Purple),
-                    new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, Color.Orange), // BACK
-                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, Color.Orange),
-                    new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, Color.Orange),
-                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.Orange),
-                    new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, Color.OrangeRed), // Top
-                    new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, Color.OrangeRed),
-                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Blue), // Bottom
-                    new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, Color.Blue),
-                    new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, Color.Blue),
-                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Blue),
-                    new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, Color.Blue),
-                    new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, Color.Blue),
-                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.DarkOrange), // Left
-                    new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, Color.DarkOrange), // Right
-                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, Color.DarkOrange),
-                    new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.DarkOrange),};
+                /*new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Purple), // Front
+                new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, Color.Purple),
+                new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, Color.Purple),
+                new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Purple),
+                new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, Color.Purple),
+                new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, Color.Purple),
+                new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, Color.Orange), // BACK
+                new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.Orange),
+                new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, Color.Orange),
+                new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, Color.Orange),
+                new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, Color.Orange),
+                new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.Orange),
+                new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, Color.OrangeRed), // Top
+                new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, Color.OrangeRed),
+                new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.OrangeRed),
+                new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, Color.OrangeRed),
+                new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.OrangeRed),
+                new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, Color.OrangeRed),
+                new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Blue), // Bottom
+                new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, Color.Blue),
+                new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, Color.Blue),
+                new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.Blue),
+                new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, Color.Blue),
+                new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, Color.Blue),
+                new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.DarkOrange), // Left
+                new VertexPositionNormalColor(backBottomLeft, backBottomLeftNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(frontBottomLeft, frontBottomLeftNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(backTopLeft, backTopLeftNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(frontTopLeft, frontTopLeftNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, Color.DarkOrange), // Right
+                new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(backBottomRight, backBottomRightNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(frontBottomRight, frontBottomRightNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(frontTopRight, frontTopRightNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(backTopRight, backTopRightNormal, Color.DarkOrange),*/
+
+                new VertexPositionNormalColor(frontBottomLeft, frontNormal, Color.Purple), // Front
+                new VertexPositionNormalColor(frontTopLeft, frontNormal, Color.Purple),
+                new VertexPositionNormalColor(frontTopRight, frontNormal, Color.Purple),
+                new VertexPositionNormalColor(frontBottomLeft, frontNormal, Color.Purple),
+                new VertexPositionNormalColor(frontTopRight, frontNormal, Color.Purple),
+                new VertexPositionNormalColor(frontBottomRight, frontNormal, Color.Purple),
+                new VertexPositionNormalColor(backBottomLeft, backNormal, Color.Orange), // BACK
+                new VertexPositionNormalColor(backTopRight, backNormal, Color.Orange),
+                new VertexPositionNormalColor(backTopLeft, backNormal, Color.Orange),
+                new VertexPositionNormalColor(backBottomLeft, backNormal, Color.Orange),
+                new VertexPositionNormalColor(backBottomRight, backNormal, Color.Orange),
+                new VertexPositionNormalColor(backTopRight, backNormal, Color.Orange),
+                new VertexPositionNormalColor(frontTopLeft, upNormal, Color.OrangeRed), // Top
+                new VertexPositionNormalColor(backTopLeft, upNormal, Color.OrangeRed),
+                new VertexPositionNormalColor(backTopRight, upNormal, Color.OrangeRed),
+                new VertexPositionNormalColor(frontTopLeft, upNormal, Color.OrangeRed),
+                new VertexPositionNormalColor(backTopRight, upNormal, Color.OrangeRed),
+                new VertexPositionNormalColor(frontTopRight, upNormal, Color.OrangeRed),
+                new VertexPositionNormalColor(frontBottomLeft, downNormal, Color.Blue), // Bottom
+                new VertexPositionNormalColor(backBottomRight, downNormal, Color.Blue),
+                new VertexPositionNormalColor(backBottomLeft, downNormal, Color.Blue),
+                new VertexPositionNormalColor(frontBottomLeft, downNormal, Color.Blue),
+                new VertexPositionNormalColor(frontBottomRight, downNormal, Color.Blue),
+                new VertexPositionNormalColor(backBottomRight, downNormal, Color.Blue),
+                new VertexPositionNormalColor(frontBottomLeft, leftNormal, Color.DarkOrange), // Left
+                new VertexPositionNormalColor(backBottomLeft, leftNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(backTopLeft, leftNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(frontBottomLeft, leftNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(backTopLeft, leftNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(frontTopLeft, leftNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(frontBottomRight, rightNormal, Color.DarkOrange), // Right
+                new VertexPositionNormalColor(backTopRight, rightNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(backBottomRight, rightNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(frontBottomRight, rightNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(frontTopRight, rightNormal, Color.DarkOrange),
+                new VertexPositionNormalColor(backTopRight, rightNormal, Color.DarkOrange),
+            };
         }
         
     }

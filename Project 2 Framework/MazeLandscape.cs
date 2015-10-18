@@ -14,8 +14,10 @@ namespace Project
     {
         int dimension;
         int seed;
-        static float CUBESCALE=0.5f;
+        public static float CUBESCALE = 2.0f;
         public RandomMaze maze;
+        public float entranceX;
+        public float entranceZ;
         public MazeLandscape(LabGame game,int dimension,int seed )
         {
             this.seed = seed;
@@ -39,6 +41,8 @@ namespace Project
             GetParamsFromModel();
             effect = game.Content.Load<Effect>("Phong");
             Debug.WriteLine("maze created");
+            entranceX = maze.startPoint.x * CUBESCALE * 2;
+            entranceZ = maze.startPoint.y * CUBESCALE * 2;
         }
         public MyModel CreateMazeLandscapeModel()
         {
@@ -54,7 +58,7 @@ namespace Project
                 effect.Parameters["View"].SetValue(basicEffect.View);
                 effect.Parameters["Projection"].SetValue(basicEffect.Projection);
                 effect.Parameters["cameraPos"].SetValue(new Vector4(game.camera.pos.X, game.camera.pos.Y, game.camera.pos.Z, 1));
-                effect.Parameters["lightPntPos"].SetValue(new Vector4(50, 50, -50, 1));
+                effect.Parameters["lightPntPos"].SetValue(new Vector4(dimension * CUBESCALE * 2 + 50, 10000, -50, 1));
                 effect.Parameters["worldInvTrp"].SetValue(Matrix.Transpose(Matrix.Invert(basicEffect.World)));
                 effect.Techniques[0].Passes[0].Apply();
             }
@@ -62,6 +66,8 @@ namespace Project
             base.Draw(gametime);
 
         }
+
+       
 
         public override void Update(GameTime gameTime)
         {
