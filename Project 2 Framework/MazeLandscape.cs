@@ -58,7 +58,7 @@ namespace Project
                 effect.Parameters["View"].SetValue(basicEffect.View);
                 effect.Parameters["Projection"].SetValue(basicEffect.Projection);
                 effect.Parameters["cameraPos"].SetValue(new Vector4(game.camera.pos.X, game.camera.pos.Y, game.camera.pos.Z, 1));
-                effect.Parameters["lightPntPos"].SetValue(new Vector4(50, 50, -50, 1));
+                effect.Parameters["lightPntPos"].SetValue(new Vector4(dimension * CUBESCALE * 2 + 50, 10000, -50, 1));
                 effect.Parameters["worldInvTrp"].SetValue(Matrix.Transpose(Matrix.Invert(basicEffect.World)));
                 effect.Techniques[0].Passes[0].Apply();
             }
