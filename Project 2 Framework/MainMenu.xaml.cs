@@ -39,11 +39,26 @@ namespace Project
         private void StartGame(object sender, RoutedEventArgs e)
         {
             parent.StartGame();
+            parent.Children.Add(new InGameUI(parent,parent.game));
+            parent.Children.Remove(this);
+
         }
 
-        private void LoadInstructions(object sender, RoutedEventArgs e)
+        private void LoadHelp(object sender, RoutedEventArgs e)
         {
             parent.Children.Add(new Help(parent));
+            parent.Children.Remove(this);
+        }
+
+        private void LoadAbout(object sender, RoutedEventArgs e)
+        {
+            parent.Children.Add(new About(parent));
+            parent.Children.Remove(this);
+        }
+
+        private void LoadOption(object sender, RoutedEventArgs e)
+        {
+            parent.Children.Add(new Option(parent,parent.game));
             parent.Children.Remove(this);
         }
 

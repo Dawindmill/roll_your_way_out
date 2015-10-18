@@ -10,6 +10,6 @@
     d:DesignHeight="800">
     <Grid>
         <Button x:Name="cmdBack" Content="Back" HorizontalAlignment="Left" Height="77" Margin="954,70,0,0" VerticalAlignment="Top" Width="163" Click="GoBack"/>
-        <TextBlock x:Name="txtInstructions" FontSize="30" HorizontalAlignment="Left" Height="602" Margin="415,73,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="472">In 'MazeBall' you need to control the ball by tilting the tablet/mobile in order to move the ball to the exit of the maze.<LineBreak/><LineBreak/>In the option menu you can set 'seed' value to generated different maze to play and gravity can also be set in the option menu to control the speed of the ball's movement.<LineBreak/><LineBreak/>Enjoy The Game !</TextBlock>
+        <TextBlock x:Name="txtInstructions" FontSize="30" HorizontalAlignment="Left" Height="602" Margin="415,73,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="472">Welcome to the "MazeBall"!<LineBreak/><LineBreak/> Control your ball by tilting the tablet/mobile in the direction you want the ball to move to. The movement of the ball follows the natrural physics. Try to find the exit of the maze and Roll Your Way Out!<LineBreak/><LineBreak/>Set your own maze randomizing seed and gravity level in the option page.<LineBreak/><LineBreak/>Let's Go Rolling!</TextBlock>
     </Grid>
 </Page>

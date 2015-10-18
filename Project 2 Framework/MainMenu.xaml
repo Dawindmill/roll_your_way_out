@@ -11,6 +11,8 @@
     <Grid>
         <Button x:Name="cmdStart" Content="Start" HorizontalAlignment="Left" Height="77" Margin="515,247,0,0" VerticalAlignment="Top" Width="163" Click="StartGame"/>
         <Slider x:Name="sldDifficulty" HorizontalAlignment="Left" Height="38" Margin="208,10,0,0" VerticalAlignment="Top" Width="159" ValueChanged="changeDifficulty" Value="1" IsTabStop="False" Minimum="0.5" Maximum="3" LargeChange="0.1" SmallChange="0.01" StepFrequency="0.01"/>
-        <Button x:Name="cmdInstructions" Content="Help" HorizontalAlignment="Left" Height="77" Margin="749,247,0,0" VerticalAlignment="Top" Width="163" Click="LoadInstructions"/>
+        <Button x:Name="cmdOption" Content="Option" HorizontalAlignment="Left" Height="77" Margin="749,247,0,0" VerticalAlignment="Top" Width="163" Click="LoadOption"/>
+        <Button x:Name="cmdHelp" Content="Help" HorizontalAlignment="Left" Height="77" Margin="515,347,0,0" VerticalAlignment="Top" Width="163" Click="LoadHelp"/>
+        <Button x:Name="cmdAbout" Content="About" HorizontalAlignment="Left" Height="77" Margin="749,347,0,0" VerticalAlignment="Top" Width="163" Click="LoadAbout"/>
     </Grid>
 </Page>
