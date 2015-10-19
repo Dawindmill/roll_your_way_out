@@ -12,7 +12,7 @@ namespace Project
     {
         Random random;
         int seed;
-        int dimension;
+        public int dimension;
 
         //what percentage of the map will be filled with roads 
         float roadPercentage;

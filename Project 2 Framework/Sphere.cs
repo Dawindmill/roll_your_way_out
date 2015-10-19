@@ -203,9 +203,11 @@ namespace Project
             float minDistance = positionList.Length * 2 * MazeLandscape.CUBESCALE;
             Vector3 closestWall = new Vector3();
 
-            for (int i = 0; i < positionList.Length; i++)
+            int dimension = this.game.mazeLandscape.maze.dimension;
+
+            for (int i = 0; i < dimension; i++)
             {
-                for(int j = 0; j < positionList.Length; j++)
+                for (int j = 0; j < dimension; j++)
                 {
                     if (positionList[i,j].Y == 1 && DistanceBetweenTwoPoint(positionList[i, j], currentPostion) < minDistance){
                         minDistance = DistanceBetweenTwoPoint(positionList[i, j], currentPostion);
@@ -222,18 +224,19 @@ namespace Project
             Vector3 closestWall = FindClosetWall(currentPosition);
             float halfCubeSize = MazeLandscape.CUBESCALE;
             //Left && Right
-            if ((currentPosition.X - radius < closestWall.X + halfCubeSize) ^
-                    (currentPosition.X + radius > closestWall.X - halfCubeSize))
+            //if ((currentPosition.X - radius < closestWall.X + halfCubeSize) ^
+            //        (currentPosition.X + radius > closestWall.X - halfCubeSize))]
+            if (currentPosition.X - radius < closestWall.X + halfCubeSize)
             {
                 isCollidedX = true;
             }
            
             //Top && Bottom;
-            if((currentPosition.Z  - radius < closestWall.Z + halfCubeSize) ^ 
-                    (currentPosition.Z + radius > closestWall.Z - halfCubeSize))
-            {
-                isCollidedZ = true;
-            }
+            //if((currentPosition.Z  - radius < closestWall.Z + halfCubeSize) ^ 
+            //        (currentPosition.Z + radius > closestWall.Z - halfCubeSize))
+            //{
+            //    isCollidedZ = true;
+            //}
             
 
         }
