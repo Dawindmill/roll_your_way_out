@@ -234,6 +234,8 @@ namespace Project
                         (currentPosition.X + radius > closestWall.X - halfCubeSize))
                 //if (currentPosition.X - radius < closestWall.X + halfCubeSize)
                 {
+                //if (currentPosition.X - radius < closestWall.X + halfCubeSize)
+                //{
                     isCollidedX = true;
                 }
 
