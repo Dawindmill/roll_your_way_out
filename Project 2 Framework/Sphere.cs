@@ -227,10 +227,12 @@ namespace Project
             float halfCubeSize = MazeLandscape.CUBESCALE;
             if (closestWall.Y == 1)
             {
+
+                System.Diagnostics.Debug.WriteLine(closestWall.X + " " + closestWall.Y);
                 //Left && Right
-                //if ((currentPosition.X - radius < closestWall.X + halfCubeSize) ^
-                //        (currentPosition.X + radius > closestWall.X - halfCubeSize))]
-                if (currentPosition.X - radius < closestWall.X + halfCubeSize)
+                if ((currentPosition.X - radius < closestWall.X + halfCubeSize) ^
+                        (currentPosition.X + radius > closestWall.X - halfCubeSize))
+                //if (currentPosition.X - radius < closestWall.X + halfCubeSize)
                 {
                     isCollidedX = true;
                 }
