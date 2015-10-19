@@ -202,6 +202,7 @@ namespace Project
            Vector3[,] positionList = this.game.mazeLandscape.positionList;
             float minDistance = positionList.Length * 2 * MazeLandscape.CUBESCALE;
             Vector3 closestWall = new Vector3();
+            Vector2 positionInMaze = PositionInMaze(currentPostion);
 
             int dimension = this.game.mazeLandscape.maze.dimension;
 
@@ -209,7 +210,8 @@ namespace Project
             {
                 for (int j = 0; j < dimension; j++)
                 {
-                    if (positionList[i,j].Y == 1 && DistanceBetweenTwoPoint(positionList[i, j], currentPostion) < minDistance){
+                    if (!(i == positionInMaze.X && j == positionInMaze.Y) 
+                        && DistanceBetweenTwoPoint(positionList[i, j], currentPostion) < minDistance){
                         minDistance = DistanceBetweenTwoPoint(positionList[i, j], currentPostion);
                         closestWall = positionList[i, j];
                     }
@@ -223,21 +225,25 @@ namespace Project
         {
             Vector3 closestWall = FindClosetWall(currentPosition);
             float halfCubeSize = MazeLandscape.CUBESCALE;
-            //Left && Right
-            //if ((currentPosition.X - radius < closestWall.X + halfCubeSize) ^
-            //        (currentPosition.X + radius > closestWall.X - halfCubeSize))]
-            if (currentPosition.X - radius < closestWall.X + halfCubeSize)
+            if (closestWall.Y == 1)
             {
-                isCollidedX = true;
+                //Left && Right
+                //if ((currentPosition.X - radius < closestWall.X + halfCubeSize) ^
+                //        (currentPosition.X + radius > closestWall.X - halfCubeSize))]
+                if (currentPosition.X - radius < closestWall.X + halfCubeSize)
+                {
+                    isCollidedX = true;
+                }
+
+                //Top && Bottom;
+                //if((currentPosition.Z  - radius < closestWall.Z + halfCubeSize) ^ 
+                //        (currentPosition.Z + radius > closestWall.Z - halfCubeSize))
+                //{
+                //    isCollidedZ = true;
+                //}
             }
-           
-            //Top && Bottom;
-            //if((currentPosition.Z  - radius < closestWall.Z + halfCubeSize) ^ 
-            //        (currentPosition.Z + radius > closestWall.Z - halfCubeSize))
-            //{
-            //    isCollidedZ = true;
-            //}
-            
+
+
 
         }
 
