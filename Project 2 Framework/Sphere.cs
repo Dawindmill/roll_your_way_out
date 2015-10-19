@@ -228,10 +228,11 @@ namespace Project
             if (closestWall.Y == 1)
             {
                 //Left && Right
-                //if ((currentPosition.X - radius < closestWall.X + halfCubeSize) ^
-                //        (currentPosition.X + radius > closestWall.X - halfCubeSize))]
-                if (currentPosition.X - radius < closestWall.X + halfCubeSize)
+                if ((currentPosition.X - radius < closestWall.X + halfCubeSize) ^
+                        (currentPosition.X + radius > closestWall.X - halfCubeSize))
                 {
+                //if (currentPosition.X - radius < closestWall.X + halfCubeSize)
+                //{
                     isCollidedX = true;
                 }
 
