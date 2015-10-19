@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -533,7 +534,9 @@ namespace Project
         
         }
 
-        //TODO
+        
+
+        //TODOs
         //public float[,] scaleTo4Point(float[,] maze)
     }
 }

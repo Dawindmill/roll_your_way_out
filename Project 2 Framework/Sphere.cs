@@ -98,7 +98,7 @@ namespace Project
 
 
 
-            CollisionDetection(nextPos);
+            CheckFourDimension(nextPos);
 
 
             if (isCollidedX)
@@ -132,25 +132,26 @@ namespace Project
 
         public void CollisionDetection(Vector3 next)
         {
+            float offset = 0.5f;
             List<Vector2> posList = new List<Vector2>();
             Vector3 left = new Vector3();
-            left.X = next.X - radius;
+            left.X = next.X - radius - offset;
             left.Z = next.Z;
             Vector2 leftMaze = PositionInMaze(left);
 
             Vector3 right = new Vector3();
-            right.X = next.X + radius;
+            right.X = next.X + radius + offset;
             right.Z = next.Z;
             Vector2 rightMaze = PositionInMaze(right);
 
             Vector3 up = new Vector3();
             up.X = next.X;
-            up.Z = next.Z - radius;
+            up.Z = next.Z - radius - offset;
             Vector2 upMaze = PositionInMaze(up);
 
             Vector3 down = new Vector3();
             down.X = next.X;
-            down.Z = next.Z + radius;
+            down.Z = next.Z + radius + offset;
             Vector2 downMaze = PositionInMaze(down);
 
 
@@ -173,7 +174,6 @@ namespace Project
             }
         }
 
-
         public Vector2 PositionInMaze(Vector3 nextPos)
         {
             float cube_side = 2 * MazeLandscape.CUBESCALE;
@@ -183,18 +183,65 @@ namespace Project
             newPos.X = (int)nextPos.X / cube_side;
             newPos.Y = (int)nextPos.Z / cube_side;
 
-            if (newPos.X < 0)
-            {
-                newPos.X = 0;
-            }
+            //if (newPos.X < 0)
+            //{
+            //    newPos.X = 0;
+            //}
 
-            if (newPos.Y < 0)
-            {
-                newPos.Y = 0;
-            }
+            //if (newPos.Y < 0)
+            //{
+            //    newPos.Y = 0;
+            //}
 
 
             return newPos;
         }
+
+        public Vector3 FindClosetWall(Vector3 currentPostion)
+        {
+           Vector3[,] positionList = this.game.mazeLandscape.positionList;
+            float minDistance = positionList.Length * 2 * MazeLandscape.CUBESCALE;
+            Vector3 closestWall = new Vector3();
+
+            for (int i = 0; i < positionList.Length; i++)
+            {
+                for(int j = 0; j < positionList.Length; j++)
+                {
+                    if (positionList[i,j].Y == 1 && DistanceBetweenTwoPoint(positionList[i, j], currentPostion) < minDistance){
+                        minDistance = DistanceBetweenTwoPoint(positionList[i, j], currentPostion);
+                        closestWall = positionList[i, j];
+                    }
+                }
+            }
+
+            return closestWall;
+        }
+
+        public void CheckFourDimension(Vector3 currentPosition)
+        {
+            Vector3 closestWall = FindClosetWall(currentPosition);
+            float halfCubeSize = MazeLandscape.CUBESCALE;
+            //Left && Right
+            if ((currentPosition.X - radius < closestWall.X + halfCubeSize) ^
+                    (currentPosition.X + radius > closestWall.X - halfCubeSize))
+            {
+                isCollidedX = true;
+            }
+           
+            //Top && Bottom;
+            if((currentPosition.Z  - radius < closestWall.Z + halfCubeSize) ^ 
+                    (currentPosition.Z + radius > closestWall.Z - halfCubeSize))
+            {
+                isCollidedZ = true;
+            }
+            
+
+        }
+
+        public float DistanceBetweenTwoPoint(Vector3 p1, Vector3 p2)
+        {
+            return (float)Math.Sqrt(Math.Pow((p1.X - p2.X), 2) + Math.Pow((p1.Z - p2.Z), 2));
+        }
+        
     }
 }

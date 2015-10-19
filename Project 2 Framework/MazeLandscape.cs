@@ -16,6 +16,7 @@ namespace Project
         int seed;
         public static float CUBESCALE = 2.0f;
         public RandomMaze maze;
+        public Vector3[,] positionList;
         public float entranceX;
         public float entranceZ;
         public MazeLandscape(LabGame game,int dimension,int seed )
@@ -43,6 +44,8 @@ namespace Project
             Debug.WriteLine("maze created");
             entranceX = maze.startPoint.x * CUBESCALE * 2;
             entranceZ = maze.startPoint.y * CUBESCALE * 2;
+
+            positionList = ConvertMazeToPostion();
         }
         public MyModel CreateMazeLandscapeModel()
         {
@@ -74,6 +77,21 @@ namespace Project
         
             basicEffect.View = game.camera.View;
             basicEffect.Projection=game.camera.Projection;
+        }
+
+        public Vector3[,] ConvertMazeToPostion()
+        {
+            Vector3[,] positionArray = new Vector3[dimension, dimension];
+            float size = CUBESCALE * 2;
+            for (int i = 0; i < dimension; i++)
+            {
+                for (int j = 0; j < dimension; j++)
+                {
+                    positionArray[i, j] = new Vector3(j * size - CUBESCALE, maze.maze[i, j], i * size - CUBESCALE);
+                }
+            }
+
+            return positionArray;
         }
 
     }
