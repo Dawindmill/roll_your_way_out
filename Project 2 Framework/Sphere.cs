@@ -100,6 +100,7 @@ namespace Project
 
         }
 
+
         public override void Update(GameTime gameTime)
         {
 
@@ -107,20 +108,50 @@ namespace Project
             basicEffect.View = game.camera.View;
             //projection = game.camera.Projection;
             Vector3 currentPos = prevPos;
+            float prevXspeed = xSpeed;
+            float prevZspeed = zSpeed;
+            float xDir;
+            float zDir;
+            float xAmountIncrease;
+            float zAmountIncrease;
+            float increasePercent= 0.001f;
+
+
             currentPos = prevPos;
 
 
             xSpeed += (float)game.accelerometerReading.AccelerationX * 0.2f;
             xSpeed -= xSpeed * frictionConstant;
+            
+            xAmountIncrease = (float)game.accelerometerReading.AccelerationX * 0.2f*increasePercent;
 
             zSpeed += (float)game.accelerometerReading.AccelerationY * 0.2f;
             zSpeed -= zSpeed * frictionConstant;
+            zAmountIncrease = (float)game.accelerometerReading.AccelerationY * 0.2f*increasePercent;
 
-            
 
+            /*while ((Math.Abs(prevXspeed) - Math.Abs(xSpeed)) >= xAmountIncrease &&
+                (Math.Abs(prevZspeed) - Math.Abs(zSpeed)) >= zAmountIncrease)
+            {
+                currentPos = prevPos;
+                CollisionDetection(currentPos);
+                if ((Math.Abs(prevXspeed) - Math.Abs(xSpeed)) >= xAmountIncrease)
+                { 
+                    prevXspeed += xAmountIncrease;
+                    prevXspeed -= prevXspeed * frictionConstant;
+                    currentPos.X += prevXspeed;
+                }
+                if ((Math.Abs(prevZspeed) - Math.Abs(zSpeed)) >= zAmountIncrease)
+                { 
+                    prevZspeed += zAmountIncrease;
+                    prevZspeed -= prevZspeed * frictionConstant;
+                    currentPos.Z += prevZspeed;
+                }
+            }*/
 
 
             CollisionDetection(currentPos);
+            
 
 
             if (isCollidedLeft)
@@ -145,7 +176,6 @@ namespace Project
                 zSpeed = Math.Abs(zSpeed);
                 isCollidedDown = false;
             }
-
             prevPos = pos;
 
             pos.X += xSpeed;
@@ -208,14 +238,25 @@ namespace Project
         
         public void CollisionDetection(Vector3 next)
         {
-            Vector2 posInMaze, left, right, up, down;
-            float leftPosInMaze, rightPosInMaze, upPosInMaze, downPosInMaze;
+            Vector2 posInMaze, left, right, up, down, leftUp, rightUp, leftDown, rightDown;
+            float leftPosInMaze, rightPosInMaze, upPosInMaze, downPosInMaze, leftUpInMaze, rightUpInMaze, LeftDownInMaze, RightDownInMaze;
             posInMaze = PositionInMaze(next);
             left = PositionInMaze(next + new Vector3(-radius, 0, 0));
             right = PositionInMaze(next + new Vector3(radius, 0, 0));
             up = PositionInMaze(next + new Vector3(0, 0, radius));
             down = PositionInMaze(next + new Vector3(0, 0, -radius));
+            leftUp = PositionInMaze(next + new Vector3(-radius, 0, radius));
+            rightUp = PositionInMaze(next + new Vector3(radius, 0, radius));
+            leftDown = PositionInMaze(next + new Vector3(-radius, 0, -radius));
+            rightDown = PositionInMaze(next + new Vector3(radius, 0, -radius));
+
+            leftUpInMaze = game.mazeLandscape.maze.maze[(int)(leftUp.Y), (int)(leftUp.X)];
+            rightUpInMaze = game.mazeLandscape.maze.maze[(int)(rightUp.Y), (int)(rightUp.X)];
+            LeftDownInMaze = game.mazeLandscape.maze.maze[(int)(leftDown.Y), (int)(leftDown.X)];
+            RightDownInMaze = game.mazeLandscape.maze.maze[(int)(rightDown.Y), (int)(rightDown.X)];
+
             nextPosType = game.mazeLandscape.maze.maze[(int)(posInMaze.Y), (int)(posInMaze.X)];
+
             leftPosInMaze = game.mazeLandscape.maze.maze[(int)(left.Y), (int)(left.X)];
             rightPosInMaze = game.mazeLandscape.maze.maze[(int)(right.Y), (int)(right.X)];
             upPosInMaze = game.mazeLandscape.maze.maze[(int)(up.Y), (int)(up.X)];
@@ -225,15 +266,17 @@ namespace Project
             {
                 isCollidedLeft = true;
             }
-            else if (rightPosInMaze == 1)
+            
+            if (rightPosInMaze == 1)
             {
                 isCollidedRight = true;
             }
-            else if (upPosInMaze == 1)
+
+            if (upPosInMaze == 1)
             {
                 isCollidedUp = true;
             }
-            else if (downPosInMaze == 1)
+            if (downPosInMaze == 1)
             {
                 isCollidedDown = true;
             }
@@ -297,6 +340,15 @@ namespace Project
             if (newPos.Y < 0)
             {
                 newPos.Y = 0;
+            }
+
+            if (newPos.X >= game.mazeDimension)
+            {
+                newPos.X = 49;
+            }
+            if (newPos.Y >= game.mazeDimension)
+            {
+                newPos.Y = 49;
             }
 
 

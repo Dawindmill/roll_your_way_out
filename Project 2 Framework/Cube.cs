@@ -31,6 +31,7 @@ namespace Project
         public static float wall=1;
         public static float road=0;
         public static float goal = 2;
+        public static int CUBE_INITAIL_SIDE_LENGTH = 2;
         public int numberWallAndFloor;
 
 
