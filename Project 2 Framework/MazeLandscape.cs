@@ -14,6 +14,7 @@ namespace Project
     {
         int dimension;
         int seed;
+        public static String mazeModelName = "MazeLandscape";
         public static float CUBESCALE = 2.0f;
         public RandomMaze maze;
         public float entranceX;
@@ -40,7 +41,9 @@ namespace Project
             //maze.updateMazeRoad(pathFromSrcToDest, Project.Cube.goal);
 
             type = GameObjectType.MazeLandscape;
-            myModel = game.assets.GetModel("MazeLandscape", CreateMazeLandscapeModel);
+            //if maze existed before just remove it from model
+            game.assets.modelDict.Remove(mazeModelName);
+            myModel = game.assets.GetModel(mazeModelName, CreateMazeLandscapeModel);
             //radius = 0.5f;
             //frictionConstant = 0.4f;
             pos = new SharpDX.Vector3(0, 0, 0);
