@@ -57,10 +57,12 @@ namespace Project
 
         public void showPath()
         {
+            Vector2 positionInMazeArray = game.sphere.PositionInMaze(game.sphere.pos);
             //Cube cube = new cube();
+            //List<Node> pathFromSrcToDest = maze.astar.FindPath(maze.astar.Float2DtoInt(maze.maze)
+            //    , RandomMaze.WALL, maze.startPoint.x, maze.startPoint.y, maze.destPoint.x, maze.destPoint.y);
             List<Node> pathFromSrcToDest = maze.astar.FindPath(maze.astar.Float2DtoInt(maze.maze)
-                , RandomMaze.WALL, maze.startPoint.x, maze.startPoint.y, maze.destPoint.x, maze.destPoint.y);
-
+                , RandomMaze.WALL, (int)positionInMazeArray.X, (int)positionInMazeArray.Y, maze.destPoint.x, maze.destPoint.y);
             VertexPositionNormalColor[] wayOut = cube.GetMazeWayOutVertexWithCube(pathFromSrcToDest,CUBESCALE,Color.Red);
             VertexPositionNormalColor[] combinedWayOutAndMaze = new VertexPositionNormalColor[wayOut.Count() + myModel.shapeArray.Count()];
             Array.Copy(wayOut, combinedWayOutAndMaze, wayOut.Count());
