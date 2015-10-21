@@ -60,6 +60,7 @@ namespace Project
             game.reCreate();
             this.Children.Remove(mainMenu);
             game.started = true;
+            game.resumed = true;
         }
     }
 }

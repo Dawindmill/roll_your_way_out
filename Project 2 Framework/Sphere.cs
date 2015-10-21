@@ -344,11 +344,11 @@ namespace Project
 
             if (newPos.X >= game.mazeDimension)
             {
-                newPos.X = 49;
+                newPos.X = game.mazeDimension-1;
             }
             if (newPos.Y >= game.mazeDimension)
             {
-                newPos.Y = 49;
+                newPos.Y = game.mazeDimension-1;
             }
 
 

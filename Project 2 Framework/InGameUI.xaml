@@ -11,10 +11,16 @@
     >
 
     <Grid>
-        <Button x:Name="pathHintButton" Content="Path Hint" HorizontalAlignment="Left" Margin="7,50,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="pathHintButton_Click"/>
-        <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Left" Margin="7,117,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="exitButton_Click"/>
-        <TextBox x:Name="seedTextBox" FontSize="15" HorizontalAlignment="Left" Margin="10,202,0,0" TextWrapping="Wrap" Text="123" VerticalAlignment="Top" Height="29" Width="92"  TextChanged="seedTextBox_TextChanged" />
-        <Button x:Name="restartButton" Content="Restart" HorizontalAlignment="Left" Margin="7,258,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="restartButton_Click"/>
+        <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Left" Margin="7,17,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="PauseButton_Click"/>
+        <Button x:Name="pathHintButton" Content="Path Hint" HorizontalAlignment="Left" Margin="7,219,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="PathHintButton_Click"/>
+        <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Left" Margin="7,84,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="ExitButton_Click"/>
+        <TextBox x:Name="seedTextBox" FontSize="15" HorizontalAlignment="Left" Margin="10,322,0,0" TextWrapping="Wrap" Text="123" VerticalAlignment="Top" Height="29" Width="92"  TextChanged="SeedTextBox_TextChanged" />
+        <Button x:Name="restartButton" Content="Restart" HorizontalAlignment="Left" Margin="7,157,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="RestartButton_Click"/>
+        <Slider x:Name="sldDimension" HorizontalAlignment="Left"  Margin="10,420,0,0" VerticalAlignment="Top" Height="40" Width="159" ValueChanged="ChangeDimension" Value="10" IsTabStop="False" Maximum="50" LargeChange="10" SmallChange="10" StepFrequency="10" TickPlacement="None" Minimum="10"/>
+        <Slider x:Name="sldGravityFactor" HorizontalAlignment="Left"  Margin="10,501,0,0" VerticalAlignment="Top" Height="40" Width="159" ValueChanged="ChangeGravityFactor" Value="0.2" IsTabStop="False" Maximum="1" LargeChange="0.01" SmallChange="0.01" StepFrequency="0.01" TickPlacement="None"/>
+        <TextBlock x:Name="sldDimensionLabel" FontSize="30" HorizontalAlignment="Left" Margin="10,373,0,0" TextWrapping="Wrap" Text="Maze Dimension" VerticalAlignment="Top"/>
+        <TextBlock x:Name="sldGravityLabel" FontSize="30" HorizontalAlignment="Left" Margin="10,477,0,0" TextWrapping="Wrap" Text="Gravity Factor" VerticalAlignment="Top"/>
+        <TextBlock x:Name="seedTextBlockLabel" FontSize="30" HorizontalAlignment="Left" Margin="10,265,0,0" TextWrapping="Wrap" Text="Seed" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

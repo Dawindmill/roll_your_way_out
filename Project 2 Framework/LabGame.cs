@@ -73,6 +73,7 @@ namespace Project
         public float boundaryBack;
 
         public bool started = false;
+        public bool resumed = false;
 
         public int mazeDimension = 50;
 
@@ -162,7 +163,7 @@ namespace Project
 
         protected override void Update(GameTime gameTime)
         {
-            if (started)
+            if (started&&resumed)
             {
                 keyboardState = keyboardManager.GetState();
                 flushAddedAndRemovedGameObjects();
