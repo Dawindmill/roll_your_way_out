@@ -104,6 +104,9 @@
     <ToolkitFxc Include="Content\Phong.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </ToolkitFxc>
+    <ToolkitFxc Include="Content\modelShader.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </ToolkitFxc>
     <Content Include="Content\player projectile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

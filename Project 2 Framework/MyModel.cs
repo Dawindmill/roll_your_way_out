@@ -21,9 +21,11 @@ namespace Project
         public ModelType modelType;
         public Texture2D Texture;
         public float collisionRadius;
+        public VertexPositionNormalColor[] shapeArray;
         
         public MyModel(LabGame game, VertexPositionNormalColor[] shapeArray, String textureName, float collisionRadius)
         {
+            this.shapeArray = shapeArray;
             this.vertices = Buffer.Vertex.New(game.GraphicsDevice, shapeArray);
             this.inputLayout = VertexInputLayout.New<VertexPositionNormalColor>(0);
             vertexStride = Utilities.SizeOf<VertexPositionNormalColor>();
@@ -33,6 +35,7 @@ namespace Project
 
         public MyModel(LabGame game, VertexPositionNormalTexture[] shapeArray, String textureName, float collisionRadius)
         {
+            //this.shapeArray = shapeArray;
             this.vertices = Buffer.Vertex.New(game.GraphicsDevice, shapeArray);
             this.inputLayout = VertexInputLayout.New<VertexPositionNormalTexture>(0);
             vertexStride = Utilities.SizeOf<VertexPositionNormalTexture>();

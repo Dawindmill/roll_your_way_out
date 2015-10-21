@@ -18,20 +18,26 @@ namespace Project
         public RandomMaze maze;
         public float entranceX;
         public float entranceZ;
+        public VertexPositionNormalColor[] normalMaze;
+        Cube cube;
         public MazeLandscape(LabGame game,int dimension,int seed )
         {
             this.seed = seed;
             this.dimension = dimension;
             this.game = game;
             maze = new RandomMaze(dimension, seed);
-            Cube cube = new Cube();
+            cube = new Cube();
             maze.GenerateMaze();
             maze.setStartPointAndDestPoint();
 
             //display path.
-            List<Node> pathFromSrcToDest = maze.astar.FindPath(maze.astar.Float2DtoInt(maze.maze)
-                ,RandomMaze.WALL,maze.startPoint.x,maze.startPoint.y,maze.destPoint.x,maze.destPoint.y);
-            maze.updateMazeRoad(pathFromSrcToDest, Project.Cube.goal);
+
+
+            /*
+                            List<Node> pathFromSrcToDest = maze.astar.FindPath(maze.astar.Float2DtoInt(maze.maze)
+                , RandomMaze.WALL, maze.startPoint.x, maze.startPoint.y, maze.destPoint.x, maze.destPoint.y); 
+            */
+            //maze.updateMazeRoad(pathFromSrcToDest, Project.Cube.goal);
 
             type = GameObjectType.MazeLandscape;
             myModel = game.assets.GetModel("MazeLandscape", CreateMazeLandscapeModel);
@@ -43,7 +49,34 @@ namespace Project
             Debug.WriteLine("maze created");
             entranceX = maze.startPoint.x * CUBESCALE * 2;
             entranceZ = maze.startPoint.y * CUBESCALE * 2;
+            normalMaze = myModel.shapeArray;
         }
+
+        public void showPath()
+        {
+            //Cube cube = new cube();
+            List<Node> pathFromSrcToDest = maze.astar.FindPath(maze.astar.Float2DtoInt(maze.maze)
+                , RandomMaze.WALL, maze.startPoint.x, maze.startPoint.y, maze.destPoint.x, maze.destPoint.y);
+
+            VertexPositionNormalColor[] wayOut = cube.GetMazeWayOutVertexWithCube(pathFromSrcToDest,CUBESCALE,Color.Red);
+            VertexPositionNormalColor[] combinedWayOutAndMaze = new VertexPositionNormalColor[wayOut.Count() + myModel.shapeArray.Count()];
+            Array.Copy(wayOut, combinedWayOutAndMaze, wayOut.Count());
+            Array.Copy(normalMaze, 0, combinedWayOutAndMaze, wayOut.Count(), normalMaze.Count());
+            myModel.shapeArray = combinedWayOutAndMaze;
+            myModel.vertices = SharpDX.Toolkit.Graphics.Buffer.Vertex.New(game.GraphicsDevice, myModel.shapeArray);
+            /*landScape = new VertexPositionNormalColor[terrain.Length + water.Length];
+
+            Array.Copy(terrain, landScape, terrain.Length);
+            Array.Copy(water, 0, landScape, terrain.Length, water.Length);
+*/
+        }
+
+        public void closePath()
+        {
+            myModel.shapeArray = normalMaze;
+            myModel.vertices = SharpDX.Toolkit.Graphics.Buffer.Vertex.New(game.GraphicsDevice, myModel.shapeArray);
+        }
+
         public MyModel CreateMazeLandscapeModel()
         {
             return game.assets.CreateMazeLandscapeCube(dimension, seed, CUBESCALE,maze);
@@ -58,7 +91,7 @@ namespace Project
                 effect.Parameters["View"].SetValue(basicEffect.View);
                 effect.Parameters["Projection"].SetValue(basicEffect.Projection);
                 effect.Parameters["cameraPos"].SetValue(new Vector4(game.camera.pos.X, game.camera.pos.Y, game.camera.pos.Z, 1));
-                effect.Parameters["lightPntPos"].SetValue(new Vector4(dimension * CUBESCALE * 2 + 50, 10000, -50, 1));
+                effect.Parameters["lightPntPos"].SetValue(new Vector4(dimension * CUBESCALE * 2 + 5000, 100000, 100, 1));
                 effect.Parameters["worldInvTrp"].SetValue(Matrix.Transpose(Matrix.Invert(basicEffect.World)));
                 effect.Techniques[0].Passes[0].Apply();
             }

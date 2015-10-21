@@ -74,8 +74,9 @@ namespace Project
 
         public bool started = false;
 
-        int mazeDimension = 50;
-        int mazeSeed = 54654;
+        public int mazeDimension = 50;
+
+        public int mazeSeed = 2432;//123;
 
         public float accelerationFraction;
 
@@ -114,6 +115,14 @@ namespace Project
 
             score = 0;
             difficulty = 1;
+        }
+        public void reCreate()
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            Initialize();
+            LoadContent();
+
+
         }
 
         protected override void LoadContent()

@@ -27,10 +27,15 @@ namespace Project
         public float zAngularVelocity;
         private float frictionConstant;
         public Vector3 prevPos;
-        public Vector3 nextPos;
+        //public Vector3 nextPos;
         private float scallingFactor = 0.5f;
-        public bool isCollidedX = false;
-        public bool isCollidedZ = false;
+        public bool isCollidedLeft = false;
+        public bool isCollidedRight = false;
+        public bool isCollidedUp = false;
+        public bool isCollidedDown = false;
+
+        public float nextPosType;
+        private Texture2D texture;
 
         public Sphere(Model sphere,LabGame game)
         {
@@ -39,7 +44,10 @@ namespace Project
             basicEffect = new BasicEffect(game.GraphicsDevice)
             {
                 View = game.camera.View,
+                
+                //View = Matrix.LookAtRH(game.camera.pos, game.camera.pos+game.camera.pos_relative_to_player, Vector3.UnitY),
                 Projection = game.camera.Projection,
+                //Projection = Matrix.PerspectiveFovRH((float)Math.PI / 4.0f, (float)game.GraphicsDevice.BackBuffer.Width / game.GraphicsDevice.BackBuffer.Height, 0.01f, 15000.0f),
                 World = Matrix.Identity,
                 //Texture = myModel.Texture,
                 TextureEnabled = true,
@@ -60,11 +68,15 @@ namespace Project
           //  pos = new Vector3(-model.BoundingSphere.Center.X,-model.BoundingSphere.Center.Y,-model.BoundingSphere.Center.Z);
             //pos = new Vector3(game.mazeLandscape.maze.startPoint.x, 3, game.mazeLandscape.maze.startPoint.y);
             pos = new Vector3(game.mazeLandscape.entranceX, 0, game.mazeLandscape.entranceZ);
-            basicEffect.World = Matrix.Translation(pos);// * Matrix.Scaling(1f);
-            //effect = game.Content.Load<Effect>("Phong");
+            radius = model.CalculateBounds().Radius * scallingFactor + 0.6f;
+            basicEffect.World = Matrix.Translation(new Vector3(model.CalculateBounds().Center.X,
+                model.CalculateBounds().Center.Y, model.CalculateBounds().Center.Z)) * Matrix.Translation(pos);// * Matrix.Scaling(1f);
+            effect = game.Content.Load<Effect>("modelShader");
+            texture = game.Content.Load<Texture2D>("wood");
 
-            radius = model.Meshes[0].BoundingSphere.Radius * scallingFactor;
-            frictionConstant = 0.4f;
+            //radius = model.Meshes[0].BoundingSphere.Radius * scallingFactor;
+            
+            frictionConstant = 0.2f;
 
         }
 
@@ -73,18 +85,29 @@ namespace Project
             //Matrix[] bones = new Matrix []{ Matrix.Translation(new Vector3(0, 0, 0)) };
             //model.Effects[0].
             //model.Draw(game.GraphicsDevice, world, view, projection);
+            //Matrix newWorld = basicEffect.World * Matrix.Scaling(1, 1, -1);
 
-            model.Draw(game.GraphicsDevice, basicEffect.World, basicEffect.View, basicEffect.Projection);
+            effect.Parameters["World"].SetValue(basicEffect.World);
+            effect.Parameters["View"].SetValue(basicEffect.View);
+            effect.Parameters["Projection"].SetValue(basicEffect.Projection);
+            effect.Parameters["cameraPos"].SetValue(new Vector4(game.camera.pos.X, game.camera.pos.Y, game.camera.pos.Z, 1));
+            effect.Parameters["lightPntPos"].SetValue(new Vector4(game.mazeDimension * MazeLandscape.CUBESCALE * 2 + 5000, 100000, 100, 1));
+            effect.Parameters["worldInvTrp"].SetValue(Matrix.Transpose(Matrix.Invert(basicEffect.World)));
+            effect.Parameters["tex"].SetResource(texture);
+            effect.Techniques[0].Passes[0].Apply();
+            model.Draw(game.GraphicsDevice, basicEffect.World, basicEffect.View, basicEffect.Projection, effect);
                 //base.Draw(gametime);
 
         }
 
         public override void Update(GameTime gameTime)
         {
+
+            //basicEffect.View = Matrix.LookAtRH(game.camera.pos, game.sphere.pos, Vector3.UnitY);
             basicEffect.View = game.camera.View;
             //projection = game.camera.Projection;
-
-            nextPos = prevPos;
+            Vector3 currentPos = prevPos;
+            currentPos = prevPos;
 
 
             xSpeed += (float)game.accelerometerReading.AccelerationX * 0.2f;
@@ -93,25 +116,34 @@ namespace Project
             zSpeed += (float)game.accelerometerReading.AccelerationY * 0.2f;
             zSpeed -= zSpeed * frictionConstant;
 
-            nextPos.X += xSpeed;
-            nextPos.Z += zSpeed;
+            
 
 
 
-            CollisionDetection(nextPos);
+            CollisionDetection(currentPos);
 
 
-            if (isCollidedX)
+            if (isCollidedLeft)
             {
                 //xSpeed = -xSpeed;
-                xSpeed = 0;
-                isCollidedX = false;
+                xSpeed = Math.Abs(xSpeed);
+                isCollidedLeft = false;
             }
-            if (isCollidedZ)
+            if (isCollidedRight)
+            {
+                xSpeed = -Math.Abs(xSpeed);
+                isCollidedRight = false;
+            }
+            if (isCollidedUp)
             {
                 //zSpeed = -zSpeed;
-                zSpeed = 0;
-                isCollidedZ = false;
+                zSpeed = -Math.Abs(zSpeed);
+                isCollidedUp = false;
+            }
+            if (isCollidedDown)
+            {
+                zSpeed = Math.Abs(zSpeed);
+                isCollidedDown = false;
             }
 
             prevPos = pos;
@@ -130,8 +162,82 @@ namespace Project
             basicEffect.World = basicEffect.World * Matrix.Translation(-prevPos) * Matrix.RotationZ(xAngularVelocity) * Matrix.RotationAxis(new Vector3(-1, 0, 0), zAngularVelocity) * Matrix.Translation(pos);
         }
 
+        /*public void CollisionDetection(Vector3 currentPos)
+        {
+            //same orentation as array but flip 0,0 to bottom left
+            //future step
+            Vector3 futurePos = new Vector3(currentPos.X+xSpeed,0,currentPos.Z+zSpeed);
+            //row = z, col = x
+            //      front                z
+            //left  sphere  right        | up increase
+            //      back --->x right increase?
+            float cubeSideLength = 2*MazeLandscape.CUBESCALE;
+            float frontSphereRow=(futurePos.Z+ radius +MazeLandscape.CUBESCALE)/cubeSideLength;
+            float frontSphereCol = (futurePos.X  + MazeLandscape.CUBESCALE)/cubeSideLength;
+
+            float backSphereRow = (futurePos.Z - radius + MazeLandscape.CUBESCALE) / cubeSideLength;
+            float backSphereCol = (futurePos.X + MazeLandscape.CUBESCALE)/cubeSideLength;
+
+            float leftSphereRow = (futurePos.Z +MazeLandscape.CUBESCALE)/cubeSideLength;
+            float leftSphereCol = (futurePos.X- radius +MazeLandscape.CUBESCALE)/cubeSideLength;
+
+            float rightSphereRow = (futurePos.Z  + MazeLandscape.CUBESCALE)/cubeSideLength;
+            float rightSphereCol = (futurePos.X + radius+ MazeLandscape.CUBESCALE)/cubeSideLength;
+            float zMaX = MazeLandscape.CUBESCALE+(game.mazeDimension-1)*2*MazeLandscape.CUBESCALE;
+            float xMax = MazeLandscape.CUBESCALE+(game.mazeDimension-1)*2*MazeLandscape.CUBESCALE;
+            float xMin=-MazeLandscape.CUBESCALE;
+            float zMin=-MazeLandscape.CUBESCALE;
+
+            if ( futurePos.Z - radius <= zMin  ||
+                futurePos.Z + radius >= zMaX || futurePos.Z <= zMin || futurePos.Z >= zMaX)
+            {
+                isCollidedZ = true;
+
+            }
+
+            if (futurePos.X - radius <= xMin || futurePos.X + radius >= xMax
+                || futurePos.X <= xMin || futurePos.X >= xMax)
+            {
+                isCollidedX = true;
+            }
+            
+
+        }*/
+
+
+        
         public void CollisionDetection(Vector3 next)
         {
+            Vector2 posInMaze, left, right, up, down;
+            float leftPosInMaze, rightPosInMaze, upPosInMaze, downPosInMaze;
+            posInMaze = PositionInMaze(next);
+            left = PositionInMaze(next + new Vector3(-radius, 0, 0));
+            right = PositionInMaze(next + new Vector3(radius, 0, 0));
+            up = PositionInMaze(next + new Vector3(0, 0, radius));
+            down = PositionInMaze(next + new Vector3(0, 0, -radius));
+            nextPosType = game.mazeLandscape.maze.maze[(int)(posInMaze.Y), (int)(posInMaze.X)];
+            leftPosInMaze = game.mazeLandscape.maze.maze[(int)(left.Y), (int)(left.X)];
+            rightPosInMaze = game.mazeLandscape.maze.maze[(int)(right.Y), (int)(right.X)];
+            upPosInMaze = game.mazeLandscape.maze.maze[(int)(up.Y), (int)(up.X)];
+            downPosInMaze = game.mazeLandscape.maze.maze[(int)(down.Y), (int)(down.X)];
+
+            if (leftPosInMaze == 1)
+            {
+                isCollidedLeft = true;
+            }
+            else if (rightPosInMaze == 1)
+            {
+                isCollidedRight = true;
+            }
+            else if (upPosInMaze == 1)
+            {
+                isCollidedUp = true;
+            }
+            else if (downPosInMaze == 1)
+            {
+                isCollidedDown = true;
+            }
+            /*
             List<Vector2> posList = new List<Vector2>();
             Vector3 left = new Vector3();
             left.X = next.X - radius;
@@ -170,9 +276,9 @@ namespace Project
                 maze[(int)(downMaze.Y), (int)downMaze.X] == 1)
             {
                 isCollidedZ = true;
-            }
+            }*/
         }
-
+        
 
         public Vector2 PositionInMaze(Vector3 nextPos)
         {
@@ -180,8 +286,8 @@ namespace Project
 
             Vector2 newPos = new Vector2();
 
-            newPos.X = (int)nextPos.X / cube_side;
-            newPos.Y = (int)nextPos.Z / cube_side;
+            newPos.X = (int)((nextPos.X+MazeLandscape.CUBESCALE) / cube_side);
+            newPos.Y = (int)((nextPos.Z+MazeLandscape.CUBESCALE) / cube_side);
 
             if (newPos.X < 0)
             {

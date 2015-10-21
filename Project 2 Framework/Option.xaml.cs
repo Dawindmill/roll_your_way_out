@@ -34,6 +34,7 @@ namespace Project
        
         private void GoBack(object sender, RoutedEventArgs e)
         {
+            //parent.game.reCreate();
             parent.Children.Add(parent.mainMenu);
             parent.Children.Remove(this);
         }
@@ -48,7 +49,7 @@ namespace Project
             int num;
             if (Int32.TryParse(seedTextBox.Text,out num))
             {
-                
+                parent.game.mazeSeed = num;
             }
             else
             {
