@@ -1,5 +1,4 @@
-﻿using SharpDX;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +11,7 @@ namespace Project
     {
         Random random;
         int seed;
-        public int dimension;
+        int dimension;
 
         //what percentage of the map will be filled with roads 
         float roadPercentage;
@@ -534,9 +533,7 @@ namespace Project
         
         }
 
-        
-
-        //TODOs
+        //TODO
         //public float[,] scaleTo4Point(float[,] maze)
     }
 }

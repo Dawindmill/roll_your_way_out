@@ -45,11 +45,40 @@ namespace Project
 
         private void restartButton_Click(object sender, RoutedEventArgs e)
         {
+            game.reCreate();
+        }
 
+        private void seedTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int num;
+            if (Int32.TryParse(seedTextBox.Text, out num))
+            {
+                parent.game.mazeSeed = num;
+            }
+            else
+            {
+                seedTextBox.Text = "123";
+
+            }
         }
 
         private void pathHintButton_Click(object sender, RoutedEventArgs e)
         {
+            if (pathHintButton.Content.Equals("Path Hint"))
+            {
+                game.mazeLandscape.showPath();
+                pathHintButton.Content = "Off Hint";
+            }
+            else
+            {
+                game.mazeLandscape.closePath();
+                pathHintButton.Content = "Path Hint";
+            }
+        }
+
+        private void hidePathHintButton_Click(object sender, RoutedEventArgs e)
+        {
+            game.mazeLandscape.closePath();
 
         }
 

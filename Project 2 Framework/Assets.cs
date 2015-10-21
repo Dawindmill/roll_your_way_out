@@ -43,7 +43,7 @@ namespace Project
         {
             Cube cube = new Cube();
             return new MyModel(game,
-                cube.DrawMazeWithCube(maze.maze,cubeScale),
+                cube.GetMazeVertexWithCube(maze.maze,cubeScale),
                 "cube",1);
 
         }

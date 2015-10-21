@@ -10,7 +10,7 @@
     <Grid>
         <Button x:Name="pathHintButton" Content="Path Hint" HorizontalAlignment="Left" Margin="1261,11,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="pathHintButton_Click"/>
         <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Left" Margin="1261,78,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="exitButton_Click"/>
-        <Button x:Name="backMainButton" Content="MainMenu" HorizontalAlignment="Left" Margin="1261,146,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="GoBack"/>
+        <TextBox x:Name="seedTextBox" FontSize="15" HorizontalAlignment="Left" Margin="1264,163,0,0" TextWrapping="Wrap" Text="123" VerticalAlignment="Top" Height="29" Width="92"  TextChanged="seedTextBox_TextChanged" />
         <Button x:Name="restartButton" Content="Restart" HorizontalAlignment="Left" Margin="1261,219,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="restartButton_Click"/>
 
     </Grid>

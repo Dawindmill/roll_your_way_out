@@ -14,7 +14,7 @@ namespace Project
         public LabGame game;
         public Vector3 pos;
         public Vector3 oldPos;
-        private Vector3 pos_relative_to_player;
+        public Vector3 pos_relative_to_player;
 
         // Ensures that all objects are being rendered from a consistent viewpoint
         public Camera(LabGame game) {
