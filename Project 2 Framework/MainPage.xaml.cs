@@ -49,6 +49,7 @@ namespace Project
             debuggingBlock.Text += "\n seed " + game.mazeSeed;
             debuggingBlock.Text += "\n a Vertex: " + game.mazeLandscape.normalMaze[0].ToString() + "\n next pos type: " + game.sphere.nextPosType.ToString();
             //debuggingBlock.Text += "\nNumber of meshes in sphere model: " + game.sphere.model.Meshes.Count.ToString() + "\nSphere center: " + game.sphere.model.Meshes[0].BoundingSphere.Center.ToString() + "\nSphere radius: " + game.sphere.model.Meshes[0].BoundingSphere.Radius.ToString();
+            debuggingBlock.Text += "\n dimension : " + game.mazeDimension;
         }
 
         // TASK 2: Starts the game.  Not that it seems easier to simply move the game.Run(this) command to this function,
@@ -56,6 +57,7 @@ namespace Project
         // but this is an easy workaround.  Not we are also making the command button invisible after it is clicked
         public void StartGame()
         {
+            game.reCreate();
             this.Children.Remove(mainMenu);
             game.started = true;
         }
