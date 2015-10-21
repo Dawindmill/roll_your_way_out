@@ -96,7 +96,52 @@ float4 PS( PS_IN input ) : SV_Target
 
 	// Combine reflection components
 	float4 returnCol = float4(0.0f,0.0f,0.0f,0.0f);
+	//float GRRatio = spe.g / spe.r;
+	//float BRRatio = spe.b / spe.r;
 	returnCol.rgb = amb.rgb+dif.rgb+spe.rgb;
+	/*float3 colNorm = normalize(float3(spe.r, spe.g, spe.b));
+	float intensity = (colNorm[0] + colNorm[1] + colNorm[2]) / 3;
+	if (intensity >= 0.98) {
+		spe.rgb = colNorm;
+	}
+	else if (intensity >= 0.8) {
+		spe.rgb = colNorm * 0.8;
+	}
+	else if (intensity >= 0.7){
+		spe.rgb = colNorm * 0.7;
+	}
+	else if (intensity >= 0.5) {
+		spe.rgb = colNorm * 0.5;
+	}
+	else {
+		spe.rgb = colNorm * 0.3;
+	}*/
+	float3 colNorm = normalize(float3(returnCol.r, returnCol.g, returnCol.b));
+	float intensity = (colNorm[0] + colNorm[1] + colNorm[2]) / 3;
+	if (intensity >= 0.98) {
+		returnCol.rgb = colNorm;
+	}
+	else if (intensity >= 0.9) {
+		returnCol.rgb = colNorm * 0.9;
+	}
+	else if (intensity >= 0.8) {
+		returnCol.rgb = colNorm * 0.8;
+	}
+	else if (intensity >= 0.7){
+		returnCol.rgb = colNorm * 0.7;
+	}
+	else if (intensity >= 0.6) {
+		returnCol.rgb = colNorm * 0.6;
+	}
+	else if (intensity >= 0.5) {
+		returnCol.rgb = colNorm * 0.5;
+	}
+	else if (intensity >= 0.4) {
+		returnCol.rgb = colNorm * 0.4;
+	}
+	else {
+		returnCol.rgb = colNorm * 0.3;
+	}
 	returnCol.a = input.col.a;
 
 	return returnCol;
