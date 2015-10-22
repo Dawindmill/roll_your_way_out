@@ -117,30 +117,27 @@ float4 PS( PS_IN input ) : SV_Target
 		spe.rgb = colNorm * 0.3;
 	}*/
 	float3 colNorm = normalize(float3(returnCol.r, returnCol.g, returnCol.b));
-	float intensity = (colNorm[0] + colNorm[1] + colNorm[2]) / 3;
+	//float intensity = (colNorm[0] + colNorm[1] + colNorm[2]) / 3;
+	//float maxCol = max(max(colNorm[0], colNorm[1]), colNorm[2]);
+	float intensity = (returnCol.r + returnCol.g + returnCol.b) / 3;
+	float maxCol = max(max(returnCol.r, returnCol.g), returnCol.b);
 	if (intensity >= 0.98) {
-		returnCol.rgb = colNorm;
+		returnCol.rgb = returnCol.rgb / maxCol;
 	}
-	else if (intensity >= 0.9) {
-		returnCol.rgb = colNorm * 0.9;
-	}
+	//else if (intensity >= 0.9) {
+		//returnCol.rgb = returnCol.rgb / maxCol * 0.9;
+	//}
 	else if (intensity >= 0.8) {
-		returnCol.rgb = colNorm * 0.8;
+		returnCol.rgb = returnCol.rgb / maxCol * 0.8;
 	}
-	else if (intensity >= 0.7){
-		returnCol.rgb = colNorm * 0.7;
-	}
-	else if (intensity >= 0.6) {
-		returnCol.rgb = colNorm * 0.6;
-	}
+	//else if (intensity >= 0.6) {
+		//returnCol.rgb = returnCol.rgb / maxCol * 0.6;
+	//}
 	else if (intensity >= 0.5) {
-		returnCol.rgb = colNorm * 0.5;
-	}
-	else if (intensity >= 0.4) {
-		returnCol.rgb = colNorm * 0.4;
+		returnCol.rgb = returnCol.rgb / maxCol * 0.5;
 	}
 	else {
-		returnCol.rgb = colNorm * 0.3;
+		returnCol.rgb = returnCol.rgb / maxCol * 0.2;
 	}
 	returnCol.a = input.col.a;
 
