@@ -184,34 +184,63 @@ namespace Project
             prevPos = pos;
 
             //pos = nextPos;
-            /*if (pos.X < -MazeLandscape.CUBESCALE)
+            if (nextPos.X < -MazeLandscape.CUBESCALE)
             {
                 pos.X = -MazeLandscape.CUBESCALE;
+                xSpeed = 0;
             }
-            else if (pos.X > (game.mazeDimension - 1) * MazeLandscape.CUBESCALE)
+            else if (nextPos.X > (game.mazeDimension - 1) * 2 * MazeLandscape.CUBESCALE)
             {
-                pos.X = (game.mazeDimension - 1) * MazeLandscape.CUBESCALE;
+                pos.X = (game.mazeDimension - 1) * 2 * MazeLandscape.CUBESCALE;
+                xSpeed = 0;
             }
             else
             {
                 pos.X += xSpeed;
             }
             
-            if (pos.Z < -MazeLandscape.CUBESCALE)
+            if (nextPos.Z < -MazeLandscape.CUBESCALE)
             {
                 pos.Z = -MazeLandscape.CUBESCALE;
+                zSpeed = 0;
             }
-            else if (pos.Z > (game.mazeDimension - 1) * MazeLandscape.CUBESCALE)
+            else if (nextPos.Z > (game.mazeDimension - 1) * 2 * MazeLandscape.CUBESCALE)
             {
-                pos.Z = (game.mazeDimension - 1) * MazeLandscape.CUBESCALE;
+                pos.Z = (game.mazeDimension - 1) * 2 * MazeLandscape.CUBESCALE;
+                zSpeed = 0;
+            }
+            else
+            {
+                pos.Z += zSpeed;
+            }
+            /*if (pos.X < 0)
+            {
+                pos.X = 0;
+            }
+            else if (pos.X > game.mazeDimension * MazeLandscape.CUBESCALE)
+            {
+                pos.X = game.mazeDimension * MazeLandscape.CUBESCALE;
+            }
+            else
+            {
+                pos.X += xSpeed;
+            }
+
+            if (pos.Z < 0)
+            {
+                pos.Z = 0;
+            }
+            else if (pos.Z > game.mazeDimension * MazeLandscape.CUBESCALE)
+            {
+                pos.Z = game.mazeDimension * MazeLandscape.CUBESCALE;
             }
             else
             {
                 pos.Z += zSpeed;
             }*/
 
-            pos.X += xSpeed;
-            pos.Z += zSpeed;
+            //pos.X += xSpeed;
+            //pos.Z += zSpeed;
             //xAngle += xSpeed * radius;
             //zAngle += zSpeed * radius;
             xAngularVelocity = xSpeed / radius;
