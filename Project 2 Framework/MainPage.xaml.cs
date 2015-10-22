@@ -50,6 +50,8 @@ namespace Project
             debuggingBlock.Text += "\n a Vertex: " + game.mazeLandscape.normalMaze[0].ToString() + "\n next pos type: " + game.sphere.nextPosType.ToString();
             //debuggingBlock.Text += "\nNumber of meshes in sphere model: " + game.sphere.model.Meshes.Count.ToString() + "\nSphere center: " + game.sphere.model.Meshes[0].BoundingSphere.Center.ToString() + "\nSphere radius: " + game.sphere.model.Meshes[0].BoundingSphere.Radius.ToString();
             debuggingBlock.Text += "\n dimension : " + game.mazeDimension;
+            debuggingBlock.Text += "\n left corner : " + game.sphere.leftUpCorner2.X;
+            debuggingBlock.Text += "\n left corner : " + game.sphere.leftUpCorner2.Y;
         }
 
         // TASK 2: Starts the game.  Not that it seems easier to simply move the game.Run(this) command to this function,
@@ -60,6 +62,18 @@ namespace Project
             game.reCreate();
             this.Children.Remove(mainMenu);
             game.started = true;
+        }
+
+        async void OnSuspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
+        {
+            var Deferral = e.SuspendingOperation.GetDeferral();
+
+            using (var Device = new SharpDX.Direct3D11.Device(SharpDX.Direct3D.DriverType.Hardware, SharpDX.Direct3D11.DeviceCreationFlags.BgraSupport, new[] { SharpDX.Direct3D.FeatureLevel.Level_11_1, SharpDX.Direct3D.FeatureLevel.Level_11_0 }))
+            using (var Direct3DDevice = Device.QueryInterface<SharpDX.Direct3D11.Device1>())
+            using (var DxgiDevice3 = Direct3DDevice.QueryInterface<SharpDX.DXGI.Device3>())
+                DxgiDevice3.Trim();
+
+            Deferral.Complete();
         }
     }
 }

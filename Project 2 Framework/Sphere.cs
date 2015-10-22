@@ -34,6 +34,7 @@ namespace Project
         public bool isCollidedUp = false;
         public bool isCollidedDown = false;
 
+        public Vector2 leftUpCorner2;
         public float nextPosType;
         private Texture2D texture;
 
@@ -321,11 +322,12 @@ namespace Project
             rightUpCorner = new Vector2((rightUp.X + 1) * MazeLandscape.CUBESCALE, (rightUp.Y + 1) * MazeLandscape.CUBESCALE);
             leftDownCorner = new Vector2((leftDown.X - 1) * MazeLandscape.CUBESCALE, (leftDown.Y - 1) * MazeLandscape.CUBESCALE);
             rightDownCorner = new Vector2((rightDown.X + 1) * MazeLandscape.CUBESCALE, (rightDown.Y + 1) * MazeLandscape.CUBESCALE);*/
-
-            leftUpCorner = new Vector2((posInMaze.X - 1) * MazeLandscape.CUBESCALE, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE);
-            rightUpCorner = new Vector2((posInMaze.X + 1) * MazeLandscape.CUBESCALE, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE);
-            leftDownCorner = new Vector2((posInMaze.X - 1) * MazeLandscape.CUBESCALE, (posInMaze.Y - 1) * MazeLandscape.CUBESCALE);
-            rightDownCorner = new Vector2((posInMaze.X + 1) * MazeLandscape.CUBESCALE, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE);
+            float half = MazeLandscape.CUBESCALE*0;
+            leftUpCorner = new Vector2((posInMaze.X + 1) * MazeLandscape.CUBESCALE * 2 - half, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE * 2 - half);
+            leftUpCorner2 = new Vector2((posInMaze.X + 1) * MazeLandscape.CUBESCALE * 2 - half, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE * 2 - half);
+            rightUpCorner = new Vector2((posInMaze.X - 1) * MazeLandscape.CUBESCALE * 2 - half, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE * 2 - half);
+            leftDownCorner = new Vector2((posInMaze.X + 1) * MazeLandscape.CUBESCALE * 2 - half, (posInMaze.Y - 1) * MazeLandscape.CUBESCALE * 2 - half);
+            rightDownCorner = new Vector2((posInMaze.X - 1) * MazeLandscape.CUBESCALE * 2 - half, (posInMaze.Y - 1) * MazeLandscape.CUBESCALE * 2 - half);
 
             leftUpDistance = distance(leftUpCorner, sphereCenter);
             rightUpDistance = distance(rightUpCorner, sphereCenter);
@@ -344,24 +346,24 @@ namespace Project
             upPosInMaze = game.mazeLandscape.maze.maze[(int)(up.Y), (int)(up.X)];
             downPosInMaze = game.mazeLandscape.maze.maze[(int)(down.Y), (int)(down.X)];
 
-            if (leftPosInMaze == 1)
-            {
-                isCollidedLeft = true;
-            }
+            //if (leftPosInMaze == 1)
+            //{
+            //    isCollidedLeft = true;
+            //}
             
-            if (rightPosInMaze == 1)
-            {
-                isCollidedRight = true;
-            }
+            //if (rightPosInMaze == 1)
+            //{
+            //    isCollidedRight = true;
+            //}
 
-            if (upPosInMaze == 1)
-            {
-                isCollidedUp = true;
-            }
-            if (downPosInMaze == 1)
-            {
-                isCollidedDown = true;
-            }
+            //if (upPosInMaze == 1)
+            //{
+            //    isCollidedUp = true;
+            //}
+            //if (downPosInMaze == 1)
+            //{
+            //    isCollidedDown = true;
+            //}
 
             /*if (leftUpDistance < radius && leftDownDistance < radius)
             {
