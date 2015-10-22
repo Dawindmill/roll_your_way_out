@@ -107,7 +107,7 @@ namespace Project
             //basicEffect.View = Matrix.LookAtRH(game.camera.pos, game.sphere.pos, Vector3.UnitY);
             basicEffect.View = game.camera.View;
             //projection = game.camera.Projection;
-            Vector3 currentPos = prevPos;
+            Vector3 nextPos = pos;
             float prevXspeed = xSpeed;
             float prevZspeed = zSpeed;
             float xDir;
@@ -117,7 +117,6 @@ namespace Project
             float increasePercent= 0.001f;
 
 
-            currentPos = prevPos;
 
 
             xSpeed += (float)game.accelerometerReading.AccelerationX * 0.2f;
@@ -129,6 +128,8 @@ namespace Project
             zSpeed -= zSpeed * frictionConstant;
             zAmountIncrease = (float)game.accelerometerReading.AccelerationY * 0.2f*increasePercent;
 
+            nextPos.X += xSpeed;
+            nextPos.Z += zSpeed;
 
             /*while ((Math.Abs(prevXspeed) - Math.Abs(xSpeed)) >= xAmountIncrease &&
                 (Math.Abs(prevZspeed) - Math.Abs(zSpeed)) >= zAmountIncrease)
@@ -150,33 +151,64 @@ namespace Project
             }*/
 
 
-            CollisionDetection(currentPos);
+            CollisionDetection(nextPos);
             
 
 
             if (isCollidedLeft)
             {
                 //xSpeed = -xSpeed;
-                xSpeed = Math.Abs(xSpeed);
+                //xSpeed = Math.Abs(xSpeed);
+                xSpeed = 0;
                 isCollidedLeft = false;
             }
             if (isCollidedRight)
             {
-                xSpeed = -Math.Abs(xSpeed);
+                //xSpeed = -Math.Abs(xSpeed);
+                xSpeed = 0;
                 isCollidedRight = false;
             }
             if (isCollidedUp)
             {
                 //zSpeed = -zSpeed;
-                zSpeed = -Math.Abs(zSpeed);
+                //zSpeed = -Math.Abs(zSpeed);
+                zSpeed = 0;
                 isCollidedUp = false;
             }
             if (isCollidedDown)
             {
-                zSpeed = Math.Abs(zSpeed);
+                //zSpeed = Math.Abs(zSpeed);
+                zSpeed = 0;
                 isCollidedDown = false;
             }
             prevPos = pos;
+
+            //pos = nextPos;
+            /*if (pos.X < -MazeLandscape.CUBESCALE)
+            {
+                pos.X = -MazeLandscape.CUBESCALE;
+            }
+            else if (pos.X > (game.mazeDimension - 1) * MazeLandscape.CUBESCALE)
+            {
+                pos.X = (game.mazeDimension - 1) * MazeLandscape.CUBESCALE;
+            }
+            else
+            {
+                pos.X += xSpeed;
+            }
+            
+            if (pos.Z < -MazeLandscape.CUBESCALE)
+            {
+                pos.Z = -MazeLandscape.CUBESCALE;
+            }
+            else if (pos.Z > (game.mazeDimension - 1) * MazeLandscape.CUBESCALE)
+            {
+                pos.Z = (game.mazeDimension - 1) * MazeLandscape.CUBESCALE;
+            }
+            else
+            {
+                pos.Z += zSpeed;
+            }*/
 
             pos.X += xSpeed;
             pos.Z += zSpeed;
