@@ -26,7 +26,7 @@ namespace Project
         public float xAngularVelocity;
         public float zAngularVelocity;
         private float frictionConstant;
-        public Vector3 prevPos;
+        public Vector3 prevPos; 
         //public Vector3 nextPos;
         private float scallingFactor = 0.5f;
         public bool isCollidedLeft = false;
