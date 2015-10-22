@@ -80,6 +80,8 @@ namespace Project
 
         public float accelerationFraction;
 
+        public float gravityFactor =0.2f;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
         /// </summary>

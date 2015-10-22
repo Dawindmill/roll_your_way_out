@@ -12,18 +12,13 @@
 
     <Grid>
 
-        <Slider x:Name="sldDifficulty" HorizontalAlignment="Left"  Margin="658,105,0,0" VerticalAlignment="Top" Height="40" Width="159" ValueChanged="ChangeDifficulty" Value="1" IsTabStop="False" Maximum="1" LargeChange="0.1" SmallChange="0.01" StepFrequency="0.01" TickPlacement="None"/>
+        <Slider x:Name="sldDimension" HorizontalAlignment="Left"  Margin="658,105,0,0" VerticalAlignment="Top" Height="40" Width="159" ValueChanged="ChangeDimension" Value="10" IsTabStop="False" Maximum="50" LargeChange="10" SmallChange="10" StepFrequency="10" TickPlacement="None" Minimum="10"/>
         <Button x:Name="cmdBack" Content="Back" HorizontalAlignment="Left" Height="77" Margin="954,70,0,0" VerticalAlignment="Top" Width="163" Click="GoBack"/>
-        <TextBlock x:Name="gravityFactorSliderLabel" FontSize="30" HorizontalAlignment="Left" Margin="372,108,0,0" TextWrapping="Wrap" Text="Gravity Factor" VerticalAlignment="Top"/>
-        <TextBlock x:Name="seedTextBoxLabel" FontSize="30" HorizontalAlignment="Left" Margin="372,166,0,0" TextWrapping="Wrap" Text="Seed" VerticalAlignment="Top"/>
-        <TextBlock x:Name="mazeDimensionTextBoxLabel" FontSize="30" HorizontalAlignment="Left" Margin="372,337,0,0" TextWrapping="Wrap" Text="Maze Dimension" VerticalAlignment="Top"/>
-        <TextBox x:Name="seedTextBox" FontSize="15" HorizontalAlignment="Left" Margin="658,170,0,0" TextWrapping="Wrap" Text="123" VerticalAlignment="Top" Height="26" Width="159"  TextChanged="seedTextBox_TextChanged" />
-        <ComboBox x:Name="mazeDimensionComboBox" SelectionChanged="mazeDimensionComboBox_SelectionChanged" Margin="658,351,0,0" RenderTransformOrigin="0.0,0.0" Width="159" MaxDropDownHeight="500" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" >
-            <x:Int32>10</x:Int32>
-            <x:Int32>20</x:Int32>
-            <x:Int32>30</x:Int32>
-            <x:Int32>40</x:Int32>
-            <x:Int32>50</x:Int32>
-        </ComboBox>
+        <TextBlock x:Name="sldDimensionLabel" FontSize="30" HorizontalAlignment="Left" Margin="372,108,0,0" TextWrapping="Wrap" Text="Maze Dimension" VerticalAlignment="Top"/>
+        <TextBlock x:Name="seedTextBoxLabel" FontSize="30" HorizontalAlignment="Left" Margin="372,265,0,0" TextWrapping="Wrap" Text="Seed" VerticalAlignment="Top"/>
+        <TextBlock x:Name="sldGravityLabel" FontSize="30" HorizontalAlignment="Left" Margin="372,189,0,0" TextWrapping="Wrap" Text="Gravity Factor" VerticalAlignment="Top"/>
+        <TextBox x:Name="seedTextBox" FontSize="15" HorizontalAlignment="Left" Margin="658,269,0,0" TextWrapping="Wrap" Text="123" VerticalAlignment="Top" Height="26" Width="159"  TextChanged="seedTextBox_TextChanged" />
+        <Slider x:Name="sldGravityFactor" HorizontalAlignment="Left"  Margin="658,186,0,0" VerticalAlignment="Top" Height="40" Width="159" ValueChanged="ChangeGravityFactor" Value="0.2" IsTabStop="False" Maximum="1" LargeChange="0.01" SmallChange="0.01" StepFrequency="0.01" TickPlacement="None"/>
+
     </Grid>
 </Page>

@@ -29,19 +29,30 @@ namespace Project
             InitializeComponent();
             this.parent = parent;
             this.game = game;
+            sldDimension.Value = game.mazeDimension;
+            sldGravityFactor.Value = game.gravityFactor;
+            seedTextBox.Text = ""+game.mazeSeed;
         }
 
        
         private void GoBack(object sender, RoutedEventArgs e)
         {
             //parent.game.reCreate();
+           
             parent.Children.Add(parent.mainMenu);
             parent.Children.Remove(this);
         }
 
-        private void ChangeDifficulty(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void ChangeDimension(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            if (game != null) { parent.game.difficulty = (float)e.NewValue; }
+            //if (game != null) { parent.game.difficulty = (float)e.NewValue; }
+            if (game != null) { parent.game.mazeDimension = (int)e.NewValue; }
+        }
+
+        private void ChangeGravityFactor(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            //if (game != null) { parent.game.difficulty = (float)e.NewValue; }
+            if (game != null) { parent.game.mazeDimension = (int)e.NewValue; }
         }
 
         private void seedTextBox_TextChanged(object sender, TextChangedEventArgs e)
