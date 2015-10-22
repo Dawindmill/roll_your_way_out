@@ -184,34 +184,63 @@ namespace Project
             prevPos = pos;
 
             //pos = nextPos;
-            /*if (pos.X < -MazeLandscape.CUBESCALE)
+            if (nextPos.X < -MazeLandscape.CUBESCALE)
             {
                 pos.X = -MazeLandscape.CUBESCALE;
+                xSpeed = 0;
             }
-            else if (pos.X > (game.mazeDimension - 1) * MazeLandscape.CUBESCALE)
+            else if (nextPos.X > (game.mazeDimension - 1) * 2 * MazeLandscape.CUBESCALE)
             {
-                pos.X = (game.mazeDimension - 1) * MazeLandscape.CUBESCALE;
+                pos.X = (game.mazeDimension - 1) * 2 * MazeLandscape.CUBESCALE;
+                xSpeed = 0;
             }
             else
             {
                 pos.X += xSpeed;
             }
             
-            if (pos.Z < -MazeLandscape.CUBESCALE)
+            if (nextPos.Z < -MazeLandscape.CUBESCALE)
             {
                 pos.Z = -MazeLandscape.CUBESCALE;
+                zSpeed = 0;
             }
-            else if (pos.Z > (game.mazeDimension - 1) * MazeLandscape.CUBESCALE)
+            else if (nextPos.Z > (game.mazeDimension - 1) * 2 * MazeLandscape.CUBESCALE)
             {
-                pos.Z = (game.mazeDimension - 1) * MazeLandscape.CUBESCALE;
+                pos.Z = (game.mazeDimension - 1) * 2 * MazeLandscape.CUBESCALE;
+                zSpeed = 0;
+            }
+            else
+            {
+                pos.Z += zSpeed;
+            }
+            /*if (pos.X < 0)
+            {
+                pos.X = 0;
+            }
+            else if (pos.X > game.mazeDimension * MazeLandscape.CUBESCALE)
+            {
+                pos.X = game.mazeDimension * MazeLandscape.CUBESCALE;
+            }
+            else
+            {
+                pos.X += xSpeed;
+            }
+
+            if (pos.Z < 0)
+            {
+                pos.Z = 0;
+            }
+            else if (pos.Z > game.mazeDimension * MazeLandscape.CUBESCALE)
+            {
+                pos.Z = game.mazeDimension * MazeLandscape.CUBESCALE;
             }
             else
             {
                 pos.Z += zSpeed;
             }*/
 
-            pos.X += xSpeed;
-            pos.Z += zSpeed;
+            //pos.X += xSpeed;
+            //pos.Z += zSpeed;
             //xAngle += xSpeed * radius;
             //zAngle += zSpeed * radius;
             xAngularVelocity = xSpeed / radius;
@@ -272,6 +301,12 @@ namespace Project
         {
             Vector2 posInMaze, left, right, up, down, leftUp, rightUp, leftDown, rightDown;
             float leftPosInMaze, rightPosInMaze, upPosInMaze, downPosInMaze, leftUpInMaze, rightUpInMaze, LeftDownInMaze, RightDownInMaze;
+
+            Vector2 leftUpCorner, rightUpCorner, leftDownCorner, rightDownCorner, sphereCenter;
+            float leftUpDistance, rightUpDistance, leftDownDistance, rightDownDistance;
+            
+            sphereCenter = new Vector2(next.X, next.Z);
+
             posInMaze = PositionInMaze(next);
             left = PositionInMaze(next + new Vector3(-radius, 0, 0));
             right = PositionInMaze(next + new Vector3(radius, 0, 0));
@@ -281,6 +316,21 @@ namespace Project
             rightUp = PositionInMaze(next + new Vector3(radius, 0, radius));
             leftDown = PositionInMaze(next + new Vector3(-radius, 0, -radius));
             rightDown = PositionInMaze(next + new Vector3(radius, 0, -radius));
+
+            /*leftUpCorner = new Vector2((leftUp.X - 1) * MazeLandscape.CUBESCALE, (leftUp.Y + 1) * MazeLandscape.CUBESCALE);
+            rightUpCorner = new Vector2((rightUp.X + 1) * MazeLandscape.CUBESCALE, (rightUp.Y + 1) * MazeLandscape.CUBESCALE);
+            leftDownCorner = new Vector2((leftDown.X - 1) * MazeLandscape.CUBESCALE, (leftDown.Y - 1) * MazeLandscape.CUBESCALE);
+            rightDownCorner = new Vector2((rightDown.X + 1) * MazeLandscape.CUBESCALE, (rightDown.Y + 1) * MazeLandscape.CUBESCALE);*/
+
+            leftUpCorner = new Vector2((posInMaze.X - 1) * MazeLandscape.CUBESCALE, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE);
+            rightUpCorner = new Vector2((posInMaze.X + 1) * MazeLandscape.CUBESCALE, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE);
+            leftDownCorner = new Vector2((posInMaze.X - 1) * MazeLandscape.CUBESCALE, (posInMaze.Y - 1) * MazeLandscape.CUBESCALE);
+            rightDownCorner = new Vector2((posInMaze.X + 1) * MazeLandscape.CUBESCALE, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE);
+
+            leftUpDistance = distance(leftUpCorner, sphereCenter);
+            rightUpDistance = distance(rightUpCorner, sphereCenter);
+            leftDownDistance = distance(leftDownCorner, sphereCenter);
+            rightDownDistance = distance(rightDownCorner, sphereCenter);
 
             leftUpInMaze = game.mazeLandscape.maze.maze[(int)(leftUp.Y), (int)(leftUp.X)];
             rightUpInMaze = game.mazeLandscape.maze.maze[(int)(rightUp.Y), (int)(rightUp.X)];
@@ -312,6 +362,44 @@ namespace Project
             {
                 isCollidedDown = true;
             }
+
+            /*if (leftUpDistance < radius && leftDownDistance < radius)
+            {
+                isCollidedLeft = true;
+            }
+            if (leftUpDistance < radius && rightUpDistance < radius)
+            {
+                isCollidedUp = true;
+            }
+            if (rightUpDistance < radius && rightDownDistance < radius)
+            {
+                isCollidedRight = true;
+            }
+            if (leftDownDistance < radius && rightDownDistance < radius)
+            {
+                isCollidedDown = true;
+            }*/
+            if (leftUpDistance < radius)
+            {
+                isCollidedLeft = true;
+                isCollidedUp = true;
+            }
+            if (rightUpDistance < radius)
+            {
+                isCollidedRight = true;
+                isCollidedUp = true;
+            }
+            if (rightDownDistance < radius)
+            {
+                isCollidedRight = true;
+                isCollidedDown = true;
+            }
+            if (leftDownDistance < radius)
+            {
+                isCollidedLeft = true;
+                isCollidedDown = true;
+            }
+
             /*
             List<Vector2> posList = new List<Vector2>();
             Vector3 left = new Vector3();
@@ -352,6 +440,11 @@ namespace Project
             {
                 isCollidedZ = true;
             }*/
+        }
+
+        public float distance(Vector2 p1, Vector2 p2)
+        {
+            return (float)Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
         }
         
 
