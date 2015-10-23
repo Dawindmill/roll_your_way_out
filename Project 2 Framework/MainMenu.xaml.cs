@@ -38,6 +38,7 @@ namespace Project
         }
         private void StartGame(object sender, RoutedEventArgs e)
         {
+            parent.inGameUI = new InGameUI(parent, parent.game);
             parent.StartGame();
             parent.Children.Add(parent.inGameUI);
             parent.Children.Remove(this);

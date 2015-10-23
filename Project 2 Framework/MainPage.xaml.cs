@@ -38,7 +38,7 @@ namespace Project
             game = new LabGame(this);
             game.Run(this);
             mainMenu = new MainMenu(this);
-            inGameUI = new InGameUI(this,game);
+            //inGameUI = new InGameUI(this,game);
             this.Children.Add(mainMenu);
         }
 
