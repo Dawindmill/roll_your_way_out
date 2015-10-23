@@ -11,7 +11,7 @@
     <Grid>
         <Button x:Name="cmdBack" Content="Back" HorizontalAlignment="Left" Height="77" Margin="954,70,0,0" VerticalAlignment="Top" Width="163" Click="GoBack"/>
         <TextBlock x:Name="txtInstructions" FontSize="20" HorizontalAlignment="Left" Height="602" Margin="415,73,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="472">
-            Welcome to the "MazeBall"!<LineBreak/><LineBreak/> 
+            Welcome to "Roll Your Way Out"!<LineBreak/><LineBreak/> 
             Control your ball by tilting the tablet/mobile in the direction you want the ball to move to. 
             The movement of the ball follows the natrural physics. 
             Try to find the exit of the maze and Roll Your Way Out!<LineBreak/><LineBreak/>
