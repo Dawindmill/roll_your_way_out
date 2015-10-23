@@ -45,6 +45,8 @@ namespace Project
         // TASK 1: Update the game's score
         public void UpdateScore(int score)
         {
+            txtScore.Visibility = Visibility.Collapsed;
+            debuggingBlock.Visibility = Visibility.Collapsed;
             txtScore.Text = "Score: " + score.ToString();
             debuggingBlock.Text = "Sphere pos: " + game.sphere.pos.ToString() + "\n" + "Camera pos: " + game.camera.pos.ToString() + "\n" + "Accelerometer X: " + game.accelerometerReading.AccelerationX.ToString() + "\n" + "Accelerometer Y: " + game.accelerometerReading.AccelerationY.ToString();
             debuggingBlock.Text += "\nxSpeed: " + game.sphere.xSpeed.ToString() + "\nzSpeed: " + game.sphere.zSpeed.ToString() + "\nxAngle: " + game.sphere.xAngle.ToString() + "\nzAngle: " + game.sphere.zAngle.ToString() + "\nSphere radius: " + game.sphere.radius.ToString();
