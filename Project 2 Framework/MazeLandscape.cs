@@ -33,9 +33,9 @@ namespace Project
 
             while (maze.destPoint == null)
             {
-                game.mazeSeed++;
+                game.mazeSeed=game.random.Next();
                 this.seed = game.mazeSeed;
-                maze = new RandomMaze(dimension, seed);
+                maze = new RandomMaze(dimension, this.seed);
                 //cube = new Cube();
                 maze.GenerateMaze();
                 maze.setStartPointAndDestPoint();

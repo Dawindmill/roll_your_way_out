@@ -65,6 +65,7 @@ namespace Project
 
             while (path==null)
             {
+                destPoint = null;
                 if (edgePoints.Count == 0)
                 {
                     break;
@@ -84,6 +85,11 @@ namespace Project
                     //edgePoints.Clear();
                     //edgePointsTemp.AddRange(edgePoints);
                     destPoint = generatePossibleDestPoint(edgePoints, startPoint);
+                    if (destPoint == null)
+                    {
+                        return;
+                    }
+
                     edgePointsTemp.Remove(destPoint);
                     maze[startPoint.y, startPoint.x] = ROAD;
                     maze[destPoint.y, destPoint.x] = ROAD;
@@ -96,7 +102,7 @@ namespace Project
             {
                 //Console.WriteLine("maze has no start and dest point abort program ");
                 //System.Environment.Exit(1);
-                App.Current.Exit();
+                return;
             }
 
             //set path
@@ -134,6 +140,7 @@ namespace Project
             {
                 if (edgePoints.Count == 0 || edgePoints == null)
                 {
+                    break;
                     //Console.WriteLine("generatePossibleDestPoint => edgePoints is empty");
                 }
                 tempDestPoint = edgePoints.ElementAt(randomIndex(edgePoints.Count));
