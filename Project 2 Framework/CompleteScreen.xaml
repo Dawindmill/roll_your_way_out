@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="congratulationsTextBlock" FontSize="60" HorizontalAlignment="Left" Margin="201,73,0,0" TextWrapping="Wrap" Text="Congratulations" VerticalAlignment="Top" Height="151" Width="425"/>
         <TextBlock x:Name="timeUsedTextBlock" FontSize="50" HorizontalAlignment="Left" Margin="201,190,0,0" TextWrapping="Wrap" Text="Time Used:" VerticalAlignment="Top"/>
-        <Button x:Name="newGameButton" Content="New Game" HorizontalAlignment="Left" Margin="198,316,0,0" VerticalAlignment="Top" Click="newGameButton_Click"/>
+        <Button x:Name="nextButton" Content="Next" HorizontalAlignment="Left" Margin="198,316,0,0" VerticalAlignment="Top" Click="nextButton_Click"/>
         <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Left" Margin="570,316,0,0" VerticalAlignment="Top" Click="exitButton_Click"/>
         <Button x:Name="closeButton" Content="Close" HorizontalAlignment="Left" Margin="392,316,0,0" VerticalAlignment="Top" Click="closeButton_Click"/>
 

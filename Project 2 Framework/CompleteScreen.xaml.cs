@@ -39,7 +39,7 @@ namespace Project
             App.Current.Exit();
         }
 
-        private void newGameButton_Click(object sender, RoutedEventArgs e)
+        private void nextButton_Click(object sender, RoutedEventArgs e)
         {
 
             game.mazeSeed = game.random.Next(1, Int32.MaxValue - 1);
