@@ -35,6 +35,8 @@ namespace Project
         public bool isCollidedDown = false;
 
         public Vector2 leftUpCorner2;
+        public Vector3 inLeftUp;
+
         public float nextPosType;
         private Texture2D texture;
 
@@ -158,28 +160,28 @@ namespace Project
 
             if (isCollidedLeft)
             {
-                //xSpeed = -xSpeed;
-                //xSpeed = Math.Abs(xSpeed);
-                xSpeed = 0;
+                xSpeed = -xSpeed;
+                xSpeed = Math.Abs(xSpeed);
+                //xSpeed = 0;
                 isCollidedLeft = false;
             }
             if (isCollidedRight)
             {
-                //xSpeed = -Math.Abs(xSpeed);
-                xSpeed = 0;
+                xSpeed = -Math.Abs(xSpeed);
+                //xSpeed = 0;
                 isCollidedRight = false;
             }
             if (isCollidedUp)
             {
-                //zSpeed = -zSpeed;
-                //zSpeed = -Math.Abs(zSpeed);
-                zSpeed = 0;
+                zSpeed = -zSpeed;
+                zSpeed = -Math.Abs(zSpeed);
+                //zSpeed = 0;
                 isCollidedUp = false;
             }
             if (isCollidedDown)
             {
-                //zSpeed = Math.Abs(zSpeed);
-                zSpeed = 0;
+                zSpeed = Math.Abs(zSpeed);
+                //zSpeed = 0;
                 isCollidedDown = false;
             }
             prevPos = pos;
@@ -301,7 +303,7 @@ namespace Project
         public void CollisionDetection(Vector3 next)
         {
             Vector2 posInMaze, left, right, up, down, leftUp, rightUp, leftDown, rightDown;
-            float leftPosInMaze, rightPosInMaze, upPosInMaze, downPosInMaze, leftUpInMaze, rightUpInMaze, LeftDownInMaze, RightDownInMaze;
+            float leftPosInMaze, rightPosInMaze, upPosInMaze, downPosInMaze, leftUpInMaze, rightUpInMaze, leftDownInMaze, rightDownInMaze;
 
             Vector2 leftUpCorner, rightUpCorner, leftDownCorner, rightDownCorner, sphereCenter;
             float leftUpDistance, rightUpDistance, leftDownDistance, rightDownDistance;
@@ -322,22 +324,34 @@ namespace Project
             rightUpCorner = new Vector2((rightUp.X + 1) * MazeLandscape.CUBESCALE, (rightUp.Y + 1) * MazeLandscape.CUBESCALE);
             leftDownCorner = new Vector2((leftDown.X - 1) * MazeLandscape.CUBESCALE, (leftDown.Y - 1) * MazeLandscape.CUBESCALE);
             rightDownCorner = new Vector2((rightDown.X + 1) * MazeLandscape.CUBESCALE, (rightDown.Y + 1) * MazeLandscape.CUBESCALE);*/
-            float half = MazeLandscape.CUBESCALE*0;
-            leftUpCorner = new Vector2((posInMaze.X + 1) * MazeLandscape.CUBESCALE * 2 - half, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE * 2 - half);
-            leftUpCorner2 = new Vector2((posInMaze.X + 1) * MazeLandscape.CUBESCALE * 2 - half, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE * 2 - half);
-            rightUpCorner = new Vector2((posInMaze.X - 1) * MazeLandscape.CUBESCALE * 2 - half, (posInMaze.Y + 1) * MazeLandscape.CUBESCALE * 2 - half);
-            leftDownCorner = new Vector2((posInMaze.X + 1) * MazeLandscape.CUBESCALE * 2 - half, (posInMaze.Y - 1) * MazeLandscape.CUBESCALE * 2 - half);
-            rightDownCorner = new Vector2((posInMaze.X - 1) * MazeLandscape.CUBESCALE * 2 - half, (posInMaze.Y - 1) * MazeLandscape.CUBESCALE * 2 - half);
+
+
+            float size = MazeLandscape.CUBESCALE * 2;
+            float halfSize = MazeLandscape.CUBESCALE;
+            float posX = posInMaze.X * size;
+            float posY = posInMaze.Y * size;
+
+            leftUpCorner = new Vector2(posX - halfSize, posY + halfSize);
+            leftUpCorner2 = new Vector2(posX - halfSize, posY + halfSize);
+            rightUpCorner = new Vector2(posX + halfSize, posY + halfSize);
+            leftDownCorner = new Vector2(posX - halfSize, posY - halfSize);
+            rightDownCorner = new Vector2(posX + halfSize, posY - halfSize);
 
             leftUpDistance = distance(leftUpCorner, sphereCenter);
             rightUpDistance = distance(rightUpCorner, sphereCenter);
             leftDownDistance = distance(leftDownCorner, sphereCenter);
             rightDownDistance = distance(rightDownCorner, sphereCenter);
 
-            leftUpInMaze = game.mazeLandscape.maze.maze[(int)(leftUp.Y), (int)(leftUp.X)];
-            rightUpInMaze = game.mazeLandscape.maze.maze[(int)(rightUp.Y), (int)(rightUp.X)];
-            LeftDownInMaze = game.mazeLandscape.maze.maze[(int)(leftDown.Y), (int)(leftDown.X)];
-            RightDownInMaze = game.mazeLandscape.maze.maze[(int)(rightDown.Y), (int)(rightDown.X)];
+            float topSide, bottomSide, leftSide, rightSide;
+            bottomSide = posInMaze.Y - 1 > 0 ? (posInMaze.Y - 1) : 0;
+            topSide = posInMaze.Y + 1 < game.mazeDimension ? (posInMaze.Y + 1) : 49;
+            leftSide = posInMaze.X - 1 > 0 ? (posInMaze.X - 1) : 0;
+            rightSide = posInMaze.Y + 1 < game.mazeDimension ? (posInMaze.X + 1) : 49;
+
+            leftUpInMaze = game.mazeLandscape.maze.maze[(int)(topSide), (int)(leftSide)];
+            rightUpInMaze = game.mazeLandscape.maze.maze[(int)(topSide), (int)(rightSide)];
+            leftDownInMaze = game.mazeLandscape.maze.maze[(int)(bottomSide), (int)(leftSide)];
+            rightDownInMaze = game.mazeLandscape.maze.maze[(int)(bottomSide), (int)(rightSide)];
 
             nextPosType = game.mazeLandscape.maze.maze[(int)(posInMaze.Y), (int)(posInMaze.X)];
 
@@ -346,24 +360,24 @@ namespace Project
             upPosInMaze = game.mazeLandscape.maze.maze[(int)(up.Y), (int)(up.X)];
             downPosInMaze = game.mazeLandscape.maze.maze[(int)(down.Y), (int)(down.X)];
 
-            //if (leftPosInMaze == 1)
-            //{
-            //    isCollidedLeft = true;
-            //}
-            
-            //if (rightPosInMaze == 1)
-            //{
-            //    isCollidedRight = true;
-            //}
+            if (leftPosInMaze == 1)
+            {
+                isCollidedLeft = true;
+            }
 
-            //if (upPosInMaze == 1)
-            //{
-            //    isCollidedUp = true;
-            //}
-            //if (downPosInMaze == 1)
-            //{
-            //    isCollidedDown = true;
-            //}
+            if (rightPosInMaze == 1)
+            {
+                isCollidedRight = true;
+            }
+
+            if (upPosInMaze == 1)
+            {
+                isCollidedUp = true;
+            }
+            if (downPosInMaze == 1)
+            {
+                isCollidedDown = true;
+            }
 
             /*if (leftUpDistance < radius && leftDownDistance < radius)
             {
@@ -381,22 +395,24 @@ namespace Project
             {
                 isCollidedDown = true;
             }*/
-            if (leftUpDistance < radius)
+            inLeftUp = new Vector3(leftSide, topSide, leftUpInMaze);
+            float buffer = (float)(radius * 0.1);
+            if (leftUpInMaze == 1 && leftUpDistance < radius - buffer)
             {
                 isCollidedLeft = true;
                 isCollidedUp = true;
             }
-            if (rightUpDistance < radius)
+            if (rightUpInMaze == 1 && rightUpDistance < radius - buffer)
             {
                 isCollidedRight = true;
                 isCollidedUp = true;
             }
-            if (rightDownDistance < radius)
+            if (rightDownInMaze == 1 && rightDownDistance < radius - buffer)
             {
                 isCollidedRight = true;
                 isCollidedDown = true;
             }
-            if (leftDownDistance < radius)
+            if (leftDownInMaze == 1 && leftDownDistance < radius - buffer)
             {
                 isCollidedLeft = true;
                 isCollidedDown = true;

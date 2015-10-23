@@ -52,6 +52,7 @@ namespace Project
             debuggingBlock.Text += "\n dimension : " + game.mazeDimension;
             debuggingBlock.Text += "\n left corner : " + game.sphere.leftUpCorner2.X;
             debuggingBlock.Text += "\n left corner : " + game.sphere.leftUpCorner2.Y;
+            debuggingBlock.Text += "\n In left Up : " + game.sphere.inLeftUp;
         }
 
         // TASK 2: Starts the game.  Not that it seems easier to simply move the game.Run(this) command to this function,
