@@ -49,6 +49,7 @@ namespace Project
 
         private void RestartButton_Click(object sender, RoutedEventArgs e)
         {
+            game.gravityFactor = (float)sldGravityFactor.Value;
             game.mazeDimension = (int)sldDimension.Value;
             game.reCreate();
             pauseButton.Content = "Pause";
@@ -65,7 +66,7 @@ namespace Project
             }
             else
             {
-                seedTextBox.Text = "123";
+                seedTextBox.Text = ""+game.mazeSeed;
 
             }
         }
@@ -93,13 +94,13 @@ namespace Project
         private void ChangeDimension(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             //if (game != null) { parent.game.difficulty = (float)e.NewValue; }
-        //    if (game != null) { parent.game.mazeDimension = (int)e.NewValue; }
+            //if (game != null) { parent.game.mazeDimension = (int)e.NewValue; }
         }
 
         private void ChangeGravityFactor(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             //if (game != null) { parent.game.difficulty = (float)e.NewValue; }
-            if (game != null) { parent.game.gravityFactor = (int)e.NewValue; }
+            if (game != null) { game.gravityFactor = (int)e.NewValue; }
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)

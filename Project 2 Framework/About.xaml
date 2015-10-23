@@ -9,17 +9,17 @@
 
     <Grid>
         <Button x:Name="cmdBack" Content="Back" HorizontalAlignment="Left" Height="77" Margin="954,70,0,0" VerticalAlignment="Top" Width="163" Click="GoBack"/>
-        <TextBlock x:Name="txtInstructions" FontSize="15" HorizontalAlignment="Left" Height="626" Margin="415,73,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="445">About "MazeBall"<LineBreak/><LineBreak/>
+        <TextBlock x:Name="txtInstructions" FontSize="15" HorizontalAlignment="Left" Height="626" Margin="415,73,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="445">About "Roll Your Way Out"<LineBreak/><LineBreak/>
             This Game is developed for the subject , Graphics and Interaction (COMP30019) in the University of Melbourne.<LineBreak/><LineBreak/>
             This Game is developed based on the project 2 framework provided from the subject , Graphics and Interaction.<LineBreak/><LineBreak/>
-            The Developers of 'MazeBall':<LineBreak/><LineBreak/>
+            The Developers of 'Roll Your Way Out':<LineBreak/><LineBreak/>
             Ruijing Zhang(646179)<LineBreak/><LineBreak/>
             Bingfeng Liu(639187)<LineBreak/><LineBreak/>
             Weiwei Cai(634082) <LineBreak/><LineBreak/>
-            The Contributions of 'MazeBall' of each developers:<LineBreak/><LineBreak/>
-            Ruijing Zhang -> Physics of ball movement , Shadding, Collision Detection.<LineBreak/><LineBreak/>
+            The Contributions of 'Roll Your Way Out' of each developers:<LineBreak/><LineBreak/>
+            Ruijing Zhang -> Ball model , Physics of ball movement , Shadding, Collision Detection.<LineBreak/><LineBreak/>
             Bingfeng Liu -> Random Maze Generation Algorithm, Game UI ,A star path finding.<LineBreak/><LineBreak/>
-            Weiwei Cai -> Random Maze Generation Algorithm, Ball Model <LineBreak/><LineBreak/>
+            Weiwei Cai -> Random Maze Generation Algorithm, Collision Detection <LineBreak/><LineBreak/>
         </TextBlock>
     </Grid>
 </Page>

@@ -31,12 +31,14 @@ namespace Project
     {
         public LabGame game;
         public MainMenu mainMenu;
+        public InGameUI inGameUI;
         public MainPage()
         {
             InitializeComponent();
             game = new LabGame(this);
             game.Run(this);
             mainMenu = new MainMenu(this);
+            inGameUI = new InGameUI(this,game);
             this.Children.Add(mainMenu);
         }
 

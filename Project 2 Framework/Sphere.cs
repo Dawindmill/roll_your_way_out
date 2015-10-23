@@ -113,23 +113,13 @@ namespace Project
             Vector3 nextPos = pos;
             float prevXspeed = xSpeed;
             float prevZspeed = zSpeed;
-            float xDir;
-            float zDir;
-            float xAmountIncrease;
-            float zAmountIncrease;
-            float increasePercent= 0.001f;
 
-
-
-
-            xSpeed += (float)game.accelerometerReading.AccelerationX * 0.2f;
+            xSpeed += (float)game.accelerometerReading.AccelerationX * game.gravityFactor;
             xSpeed -= xSpeed * frictionConstant;
-            
-            xAmountIncrease = (float)game.accelerometerReading.AccelerationX * 0.2f*increasePercent;
 
-            zSpeed += (float)game.accelerometerReading.AccelerationY * 0.2f;
+
+            zSpeed += (float)game.accelerometerReading.AccelerationY * game.gravityFactor;
             zSpeed -= zSpeed * frictionConstant;
-            zAmountIncrease = (float)game.accelerometerReading.AccelerationY * 0.2f*increasePercent;
 
             nextPos.X += xSpeed;
             nextPos.Z += zSpeed;
@@ -344,9 +334,9 @@ namespace Project
 
             float topSide, bottomSide, leftSide, rightSide;
             bottomSide = posInMaze.Y - 1 > 0 ? (posInMaze.Y - 1) : 0;
-            topSide = posInMaze.Y + 1 < game.mazeDimension ? (posInMaze.Y + 1) : 49;
+            topSide = posInMaze.Y + 1 < game.mazeDimension ? (posInMaze.Y + 1) : game.mazeDimension-1;
             leftSide = posInMaze.X - 1 > 0 ? (posInMaze.X - 1) : 0;
-            rightSide = posInMaze.Y + 1 < game.mazeDimension ? (posInMaze.X + 1) : 49;
+            rightSide = posInMaze.X + 1 < game.mazeDimension ? (posInMaze.X + 1) : game.mazeDimension - 1;
 
             leftUpInMaze = game.mazeLandscape.maze.maze[(int)(topSide), (int)(leftSide)];
             rightUpInMaze = game.mazeLandscape.maze.maze[(int)(topSide), (int)(rightSide)];

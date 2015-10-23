@@ -10,6 +10,21 @@
     d:DesignHeight="800">
     <Grid>
         <Button x:Name="cmdBack" Content="Back" HorizontalAlignment="Left" Height="77" Margin="954,70,0,0" VerticalAlignment="Top" Width="163" Click="GoBack"/>
-        <TextBlock x:Name="txtInstructions" FontSize="30" HorizontalAlignment="Left" Height="602" Margin="415,73,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="472">Welcome to the "MazeBall"!<LineBreak/><LineBreak/> Control your ball by tilting the tablet/mobile in the direction you want the ball to move to. The movement of the ball follows the natrural physics. Try to find the exit of the maze and Roll Your Way Out!<LineBreak/><LineBreak/>Set your own maze randomizing seed and gravity level in the option page.<LineBreak/><LineBreak/>Let's Go Rolling!</TextBlock>
+        <TextBlock x:Name="txtInstructions" FontSize="20" HorizontalAlignment="Left" Height="602" Margin="415,73,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="472">
+            Welcome to the "MazeBall"!<LineBreak/><LineBreak/> 
+            Control your ball by tilting the tablet/mobile in the direction you want the ball to move to. 
+            The movement of the ball follows the natrural physics. 
+            Try to find the exit of the maze and Roll Your Way Out!<LineBreak/><LineBreak/>
+            Set your own maze randomizing seed and gravity level in the option page.<LineBreak/><LineBreak/>
+            
+            In the game, if you modified the seed , maze size or gravity factor with the ui on the
+            left hand side, you need to click 'restart' button to re-generate the maze.<LineBreak/><LineBreak/>
+            
+            When you reach the exit of the maze, a window will pop up and it will show how much time
+            you used to exit the maze, there are three buttons on the window, 'new game' button will
+            increase the maze dimension until it reached the maximum , new seed will be generated in 
+            order to make a new maze for you to enjoy. 
+            
+            Let's Go Rolling!</TextBlock>
     </Grid>
 </Page>

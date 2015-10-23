@@ -50,6 +50,9 @@
     <Compile Include="Assets.cs" />
     <Compile Include="AstarSearch.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="CompleteScreen.xaml.cs">
+      <DependentUpon>CompleteScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Cube.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyController.cs" />
@@ -132,6 +135,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Common\StandardStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CompleteScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

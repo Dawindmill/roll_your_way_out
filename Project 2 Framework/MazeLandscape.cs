@@ -31,6 +31,16 @@ namespace Project
             maze.GenerateMaze();
             maze.setStartPointAndDestPoint();
 
+            while (maze.destPoint == null)
+            {
+                game.mazeSeed++;
+                this.seed = game.mazeSeed;
+                maze = new RandomMaze(dimension, seed);
+                //cube = new Cube();
+                maze.GenerateMaze();
+                maze.setStartPointAndDestPoint();
+            }
+
             //display path.
 
 

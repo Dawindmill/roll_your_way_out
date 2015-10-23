@@ -52,7 +52,7 @@ namespace Project
         private void ChangeGravityFactor(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             //if (game != null) { parent.game.difficulty = (float)e.NewValue; }
-            if (game != null) { parent.game.mazeDimension = (int)e.NewValue; }
+            if (game != null) { parent.game.gravityFactor = (float)e.NewValue; }
         }
 
         private void seedTextBox_TextChanged(object sender, TextChangedEventArgs e)

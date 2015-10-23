@@ -24,11 +24,14 @@ namespace Project
     {
         LabGame game;
         MainPage parent;
-        public CompleteScreen(MainPage parent,LabGame game)
+        int dimensionIncrease = 5;
+        public CompleteScreen(MainPage parent,LabGame game,Double gameTimeSeconds)
         {
             this.InitializeComponent();
             this.game = game;
             this.parent = parent;
+            timeUsedTextBlock.Text = timeUsedTextBlock.Text + " " + ((int)(gameTimeSeconds/60))+
+                "m "+((int)(gameTimeSeconds%60))+"s";
         }
 
         private void exitButton_Click(object sender, RoutedEventArgs e)
@@ -38,8 +41,28 @@ namespace Project
 
         private void newGameButton_Click(object sender, RoutedEventArgs e)
         {
-            game.reCreate();
+
+            game.mazeSeed = game.random.Next(1, Int32.MaxValue - 1);
+            if (game.mazeDimension + dimensionIncrease <= game.mazeMaxDimension)
+            {
+                game.mazeDimension = game.mazeDimension + dimensionIncrease;
+            }
+
+            
+
+            game.completeScreen = null;
+
             parent.Children.Remove(this);
+
+            game.reCreate();
+
+            parent.Children.Remove(parent.inGameUI);
+
+            parent.inGameUI = new InGameUI(parent, game);
+
+            parent.Children.Add(parent.inGameUI);
+
+            
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e)

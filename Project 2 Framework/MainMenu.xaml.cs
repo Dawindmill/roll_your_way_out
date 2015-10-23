@@ -39,7 +39,7 @@ namespace Project
         private void StartGame(object sender, RoutedEventArgs e)
         {
             parent.StartGame();
-            parent.Children.Add(new InGameUI(parent,parent.game));
+            parent.Children.Add(parent.inGameUI);
             parent.Children.Remove(this);
 
         }
@@ -66,6 +66,16 @@ namespace Project
         private void changeDifficulty(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (parent.game != null) { parent.game.difficulty = (float)e.NewValue; }
+        }
+
+        private void cmdExit_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.Exit();
+        }
+
+        private void rollYourWayOutTextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

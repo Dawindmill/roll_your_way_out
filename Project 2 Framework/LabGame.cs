@@ -51,6 +51,7 @@ namespace Project
         public GameInput input;
         public int score;
         public MainPage mainPage;
+        public CompleteScreen completeScreen=null;
 
         // TASK 4: Use this to represent difficulty
         public float difficulty;
@@ -75,13 +76,19 @@ namespace Project
         public bool started = false;
         public bool resumed = false;
 
-        public int mazeDimension = 50;
+        public int mazeMaxDimension =100;
 
-        public int mazeSeed = 2432;//123;
+        public int mazeDimension = 15;
+
+        public int mazeSeed;//123;
 
         public float accelerationFraction;
 
         public float gravityFactor =0.2f;
+
+        public Vector2 currentPositionInMazeArray;
+
+        public Double currentGameTimeSecond;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LabGame" /> class.
@@ -97,7 +104,7 @@ namespace Project
             // Create the keyboard manager
             keyboardManager = new KeyboardManager(this);
             assets = new Assets(this);
-            random = new Random();
+            random = new Random(Environment.TickCount);
             input = new GameInput();
 
             // Set boundaries.
@@ -118,13 +125,17 @@ namespace Project
 
             score = 0;
             difficulty = 1;
+            currentGameTimeSecond = 0;
+            //make it safe
+            mazeSeed=random.Next(1,Int32.MaxValue-1);
         }
         public void reCreate()
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Initialize();
             LoadContent();
-
+            completeScreen = null;
+            currentGameTimeSecond = 0;
 
         }
 
@@ -163,8 +174,10 @@ namespace Project
 
         protected override void Update(GameTime gameTime)
         {
+            currentPositionInMazeArray = sphere.PositionInMaze(sphere.pos);
             if (started&&resumed)
             {
+                currentGameTimeSecond += gameTime.ElapsedGameTime.TotalSeconds;
                 keyboardState = keyboardManager.GetState();
                 flushAddedAndRemovedGameObjects();
                 accelerometerReading = input.accelerometer.GetCurrentReading();
@@ -187,6 +200,20 @@ namespace Project
 
 
             }
+
+            if (currentPositionInMazeArray.X == mazeLandscape.maze.destX &&
+                currentPositionInMazeArray.Y == mazeLandscape.maze.destY)
+            {
+                if (completeScreen == null)
+                {
+                    completeScreen = new CompleteScreen(mainPage, this, currentGameTimeSecond);
+                }
+                if( !mainPage.Children.Contains(completeScreen))
+                {
+                    mainPage.Children.Add(completeScreen);
+                }
+            }
+
             base.Update(gameTime);
 
         }
