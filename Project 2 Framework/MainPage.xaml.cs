@@ -47,7 +47,7 @@ namespace Project
         {
             txtScore.Text = "Score: " + score.ToString();
             debuggingBlock.Text = "Sphere pos: " + game.sphere.pos.ToString() + "\n" + "Camera pos: " + game.camera.pos.ToString() + "\n" + "Accelerometer X: " + game.accelerometerReading.AccelerationX.ToString() + "\n" + "Accelerometer Y: " + game.accelerometerReading.AccelerationY.ToString();
-            debuggingBlock.Text += "\nxSpeed: " + game.player.xSpeed.ToString() + "\nzSpeed: " + game.player.zSpeed.ToString() + "\nxAngle: " + game.player.xAngle.ToString() + "\nzAngle: " + game.player.zAngle.ToString() + "\nSphere radius: " + game.sphere.radius.ToString();
+            debuggingBlock.Text += "\nxSpeed: " + game.sphere.xSpeed.ToString() + "\nzSpeed: " + game.sphere.zSpeed.ToString() + "\nxAngle: " + game.sphere.xAngle.ToString() + "\nzAngle: " + game.sphere.zAngle.ToString() + "\nSphere radius: " + game.sphere.radius.ToString();
             debuggingBlock.Text += "\n seed " + game.mazeSeed;
             debuggingBlock.Text += "\n a Vertex: " + game.mazeLandscape.normalMaze[0].ToString() + "\n next pos type: " + game.sphere.nextPosType.ToString();
             //debuggingBlock.Text += "\nNumber of meshes in sphere model: " + game.sphere.model.Meshes.Count.ToString() + "\nSphere center: " + game.sphere.model.Meshes[0].BoundingSphere.Center.ToString() + "\nSphere radius: " + game.sphere.model.Meshes[0].BoundingSphere.Radius.ToString();

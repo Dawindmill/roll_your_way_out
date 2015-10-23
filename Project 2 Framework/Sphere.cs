@@ -78,8 +78,8 @@ namespace Project
             texture = game.Content.Load<Texture2D>("wood");
 
             //radius = model.Meshes[0].BoundingSphere.Radius * scallingFactor;
-            
-            frictionConstant = 0.2f;
+
+            frictionConstant = 0.03f;
 
         }
 
@@ -114,11 +114,11 @@ namespace Project
             float prevXspeed = xSpeed;
             float prevZspeed = zSpeed;
 
-            xSpeed += (float)game.accelerometerReading.AccelerationX * game.gravityFactor;
+            xSpeed += (float)game.accelerometerReading.AccelerationX * game.gravityFactor * 0.1f;
             xSpeed -= xSpeed * frictionConstant;
 
 
-            zSpeed += (float)game.accelerometerReading.AccelerationY * game.gravityFactor;
+            zSpeed += (float)game.accelerometerReading.AccelerationY * game.gravityFactor * 0.1f;
             zSpeed -= zSpeed * frictionConstant;
 
             nextPos.X += xSpeed;
@@ -150,27 +150,47 @@ namespace Project
 
             if (isCollidedLeft)
             {
-                xSpeed = -xSpeed;
-                xSpeed = Math.Abs(xSpeed);
+                //xSpeed = -xSpeed;
+                //xSpeed = Math.Abs(xSpeed);
+                xSpeed = Math.Abs(prevXspeed) * 0.85f;
+                if (xSpeed < 0.0001f)
+                {
+                    xSpeed = 0;
+                }
                 //xSpeed = 0;
                 isCollidedLeft = false;
             }
             if (isCollidedRight)
             {
-                xSpeed = -Math.Abs(xSpeed);
+                //xSpeed = -Math.Abs(xSpeed);
+                xSpeed = -Math.Abs(prevXspeed) * 0.85f;
+                if (xSpeed > -0.0001f)
+                {
+                    xSpeed = 0;
+                }
                 //xSpeed = 0;
                 isCollidedRight = false;
             }
             if (isCollidedUp)
             {
-                zSpeed = -zSpeed;
-                zSpeed = -Math.Abs(zSpeed);
+                //zSpeed = -zSpeed;
+                //zSpeed = -Math.Abs(zSpeed);
+                zSpeed = -Math.Abs(prevZspeed) * 0.85f;
+                if (zSpeed > -0.0001f)
+                {
+                    zSpeed = 0;
+                }
                 //zSpeed = 0;
                 isCollidedUp = false;
             }
             if (isCollidedDown)
             {
-                zSpeed = Math.Abs(zSpeed);
+                //zSpeed = Math.Abs(zSpeed);
+                zSpeed = Math.Abs(prevZspeed) * 0.85f;
+                if (zSpeed < 0.0001f)
+                {
+                    zSpeed = 0;
+                }
                 //zSpeed = 0;
                 isCollidedDown = false;
             }
