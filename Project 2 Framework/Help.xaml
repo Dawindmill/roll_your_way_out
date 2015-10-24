@@ -13,8 +13,10 @@
         <TextBlock x:Name="txtInstructions" FontSize="20" HorizontalAlignment="Left" Height="602" Margin="415,73,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="472">
             Welcome to "Roll Your Way Out"!<LineBreak/><LineBreak/> 
             Control your ball by tilting the tablet/mobile in the direction you want the ball to move to. 
-            The movement of the ball follows the natrural physics. 
-            Try to find the exit of the maze and Roll Your Way Out!<LineBreak/><LineBreak/>
+            The movement of the ball follows the natrural physics. <LineBreak/>
+            There could be multiple exits in one maze but only one exit is the real one. When the real exit is reached,
+            a screen will pop up to show the time used in this game.
+            Try to find the real exit and Roll Your Way Out!<LineBreak/><LineBreak/>
             Set your own maze randomizing seed and gravity level in the option page.<LineBreak/><LineBreak/>
             
             In the game, if you modified the seed , maze size or gravity factor with the ui on the

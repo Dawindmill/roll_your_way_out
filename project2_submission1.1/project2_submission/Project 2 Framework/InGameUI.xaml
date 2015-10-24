@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="Project.InGameUI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Project"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="1280"
+    d:DesignHeight="800"
+    >
+
+    <Grid>
+        <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Left" Margin="7,17,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="PauseButton_Click"/>
+        <Button x:Name="pathHintButton" Content="Path Hint" HorizontalAlignment="Left" Margin="7,219,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="PathHintButton_Click"/>
+        <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Left" Margin="7,84,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="ExitButton_Click"/>
+        <TextBox x:Name="seedTextBox" FontSize="15" HorizontalAlignment="Left" Margin="10,322,0,0" TextWrapping="Wrap" Text="123" VerticalAlignment="Top" Height="29" Width="92"  TextChanged="SeedTextBox_TextChanged" />
+        <Button x:Name="restartButton" Content="Restart" HorizontalAlignment="Left" Margin="7,157,0,0" VerticalAlignment="Top" Height="52" Width="98" Click="RestartButton_Click"/>
+        <Slider x:Name="sldDimension" HorizontalAlignment="Left"  Margin="10,420,0,0" VerticalAlignment="Top" Height="40" Width="159" Value="15" IsTabStop="False" Maximum="100" LargeChange="15" SmallChange="5" StepFrequency="5" TickPlacement="None" Minimum="15"/>
+        <Slider x:Name="sldGravityFactor" HorizontalAlignment="Left"  Margin="10,501,0,0" VerticalAlignment="Top" Height="40" Width="159"  Value="0.2" IsTabStop="False" Maximum="1" LargeChange="0.01" SmallChange="0.01" StepFrequency="0.01" TickPlacement="None" Minimum="0.01"/>
+        <TextBlock x:Name="sldDimensionLabel" FontSize="30" HorizontalAlignment="Left" Margin="10,373,0,0" TextWrapping="Wrap" Text="Maze Size" VerticalAlignment="Top"/>
+        <TextBlock x:Name="sldGravityLabel" FontSize="30" HorizontalAlignment="Left" Margin="10,477,0,0" TextWrapping="Wrap" Text="Gravity Factor" VerticalAlignment="Top"/>
+        <TextBlock x:Name="seedTextBlockLabel" FontSize="30" HorizontalAlignment="Left" Margin="10,265,0,0" TextWrapping="Wrap" Text="Seed" VerticalAlignment="Top"/>
+
+    </Grid>
+</Page>

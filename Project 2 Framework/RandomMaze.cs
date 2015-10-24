@@ -94,7 +94,12 @@ namespace Project
                     maze[startPoint.y, startPoint.x] = ROAD;
                     maze[destPoint.y, destPoint.x] = ROAD;
                     path=astar.FindPath(astar.Float2DtoInt(maze), (int)WALL, startPoint.x, startPoint.y, destPoint.x, destPoint.y);
-                    //Console.WriteLine("find possible start end.");
+                    if (path == null)
+                    {
+                        maze[startPoint.y, startPoint.x] = WALL;
+                        maze[destPoint.y, destPoint.x] = WALL;
+                    }
+                //Console.WriteLine("find possible start end.");
                 //}
             }
 
