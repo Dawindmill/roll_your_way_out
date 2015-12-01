@@ -70,7 +70,9 @@ namespace Project
                 {
                     break;
                 }
-
+                //this 'if' statement can be deleted . the logic flaw in here is that
+                //if many seeds does not have a path and due to edgepoint.Count == 0 , it will exit
+                //this loop before setting the previous start and end point back to WALL.
                 if (startPoint != null && destPoint != null)
                 {
                     //reset to wall
